@@ -7,13 +7,8 @@ typedef struct
 {
     char name[15];
     char key;
+    char sign;
 } Player_t;
-
-typedef enum
-{
-    FIRST = 1,
-    SECOND
-} UserNum_t;
 
 
 #endif  /* X_O_INT_H */
