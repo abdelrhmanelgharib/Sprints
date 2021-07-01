@@ -10,5 +10,8 @@ typedef struct
     char sign;
 } Player_t;
 
-
+#define MAX_TRY  9
+#define WIN      1
+#define FIRST_PLYR    0
+#define SECO_PLYR      1
 #endif  /* X_O_INT_H */
