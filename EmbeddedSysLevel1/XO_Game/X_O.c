@@ -106,12 +106,14 @@ E_Status_t X_OGame_voidStart(void)
 
     player1 = EnterPlayer1();
     player2 = EnterPlayer2();
+    
+    Bordervoid();
 
     printf("\n");
     printf("%s you will play with X symbol\n", player1.name);
     printf("%s you will play with O symbol\n", player2.name);
 
-    Bordervoid();
+    
 
     /* 
         loop until someone win the game or numbers of loop is < 9 
@@ -125,7 +127,7 @@ E_Status_t X_OGame_voidStart(void)
             /*  */
             flag = 0;
             printf("%s ", player1.name);
-            scanf("%d", &player1.key);
+            scanf("%hd", &player1.key);
 
             /* Assign symbol x for player 1 */
             player1.sign = 'X';
@@ -158,7 +160,7 @@ E_Status_t X_OGame_voidStart(void)
             flag = 1;
             printf("%s \n", player2.name);
             // printf("test2 %s \n", player1.name);
-            scanf("%d", &player2.key);
+            scanf("%hd", &player2.key);
             // printf("test3 %s \n", player1.name);
             /* Assign sybol x for player 1 */
             player2.sign = 'O';
@@ -203,7 +205,7 @@ E_Status_t X_OGame_voidStart(void)
     }
     else if (flag == 1)
     {
-        printf("%s Winner\n", player2.name);
+        printf("%s is Winner\n", player2.name);
         printf("Good Luck %s Next Time", player1.name);
     }
     else

@@ -6,8 +6,8 @@
 typedef struct
 {
     char name[7];
-    short int key;
     char sign;
+    short int key;
 } Player_t;
 
 
