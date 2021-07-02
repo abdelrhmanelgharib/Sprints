@@ -9,11 +9,16 @@
 
 typedef struct Node
 {
-    sint32_t Data;
+    uint8_t Data;
     struct Node *Next;
 } Node_t;
 
 Node_t *Top;
+
+/*************** Global Array******************/
+// static uint8_t *STR_NBAL = "Not Balanced";
+// static uint8_t *STR_BALA = "Balanced";
+/**********************************************/
 
 void Stack_Initilaize(void)
 {
@@ -50,7 +55,7 @@ uint8_t Stack_Push(sint8_t Data)
         Temp->Data = Data;
         Temp->Next = Top;
         Top = Temp;
-        printf("Pushing is done successfully\n\n");
+        // printf("Pushing is done successfully\n\n");
     }
     return ErrorState;
 }
@@ -67,7 +72,7 @@ uint8_t Stack_Pop(sint8_t *DataPtr)
     }
     else if (Stack_IsEmpty())
     {
-        printf("Stack is empty, popping operation will result in underflow\n\n");
+        // printf("Stack is empty, popping operation will result in underflow\n\n");
         ErrorState = E_EMPTY;
     }
     else
@@ -76,7 +81,7 @@ uint8_t Stack_Pop(sint8_t *DataPtr)
         Temp = Top;
         Top = Top->Next;
         free(Temp);
-        printf("Popping is done successfully\n\n");
+        // printf("Popping is done successfully\n\n");
     }
 
     return ErrorState;
@@ -99,3 +104,96 @@ void Stack_Display(void)
         printf("\n");
     }
 }
+
+/*  
+    this function to check brakets in the string are balanced or not
+    Take string
+    return address of the string 
+*/
+uint8_t *balancedParentheses(uint8_t *expression)
+{
+    static uint8_t *STR_NBAL = "Not Balanced";
+    static uint8_t *STR_BALA = "Balanced";
+
+    uint8_t i, data, PushPopCount = 0;
+    uint8_t ErrorState, flag = 2;
+
+    /* Return number of letters in var size */
+    uint8_t size = strlen(expression);
+
+    /* check if system is Balance or Not Balanced */
+    for (i = 0; i < size; i++)
+    {
+        /* push all open Brakets */
+        if (expression[i] == '{' || expression[i] == '(')
+        {
+            Stack_Push(expression[i]);
+
+            /* increment count by 1 */
+            PushPopCount++;
+        }
+        /* check if pushed Brackets is balanced with Close Brakets */
+        else if (expression[i] == '}' || expression[i] == ')')
+        {
+            ErrorState = Stack_Pop(&data);
+
+            /* decrement count by 1 */
+            PushPopCount--;
+
+            /* Error state */
+            if (ErrorState == E_OK)
+            {
+                if (data == '{')
+                {
+                    if (expression[i] == ')')
+                    {
+                        flag = NOTBALANCED;
+                        break;
+                    }
+                    else if (expression[i] == '}')
+                    {
+                        flag = BALANCED;
+                    }
+                }
+                else if (data == '(')
+                {
+                    if (expression[i] == '}')
+                    {
+                        flag = NOTBALANCED;
+                        break;
+                    }
+                    else if (expression[i] == ')')
+                    {
+                        flag = BALANCED;
+                    }
+                }
+            }
+            else
+            {
+                /* Do nothing */
+            }
+        }
+    }
+    
+    /* for the case if right brakets is more than left */
+    /* check if stack is not empty so string is not balanced */
+    if (!Stack_IsEmpty())
+    {
+        flag = NOTBALANCED;
+    }
+    /* for the case if Left brakets is more than right*/
+    else if (PushPopCount != 0)
+    {
+        flag = NOTBALANCED;
+    }
+
+    /* return string depened on flag state: balanced or not */
+    if (flag == NOTBALANCED)
+    {
+        return STR_NBAL;
+    }
+    else if (flag == BALANCED)
+    {
+        return STR_BALA;
+    }
+} /* balancedParentheses */
