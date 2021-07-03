@@ -112,8 +112,8 @@ void Stack_Display(void)
 */
 uint8_t *balancedParentheses(uint8_t *expression)
 {
-    static uint8_t *STR_NBAL = "Not Balanced";
-    static uint8_t *STR_BALA = "Balanced";
+    uint8_t *STR_NBAL = "Not Balanced";
+    uint8_t *STR_BALA = "Balanced";
 
     uint8_t i, data, PushPopCount = 0;
     uint8_t ErrorState, flag = 2;
