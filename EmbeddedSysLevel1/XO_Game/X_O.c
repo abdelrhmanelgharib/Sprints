@@ -3,7 +3,7 @@
 
 #include "X_O_int.h"
 
-static char pos[9] = {'1', '2', '3', '4', '5', '6', '7', '8', '9'};
+uint8_t pos[9] = {'1', '2', '3', '4', '5', '6', '7', '8', '9'};
 
 /* Functions */
 
@@ -56,7 +56,7 @@ Player_t EnterPlayer2(void)
 /* 
     check for winner and Draw
  */
-short int checkwin(void)
+E_Status_t checkwin(void)
 {
     if (pos[0] == pos[1] && pos[1] == pos[2])
     {
@@ -102,7 +102,7 @@ E_Status_t X_OGame_voidStart(void)
     E_Status_t status = E_OK;
 
     Player_t player1, player2;
-    short int count = 0, Winner = 0, flag = -1;
+    sint16_t count = 0, Winner = 0, flag = -1;
 
     player1 = EnterPlayer1();
     player2 = EnterPlayer2();
