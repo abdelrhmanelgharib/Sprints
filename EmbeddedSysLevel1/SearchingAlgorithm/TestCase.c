@@ -10,7 +10,7 @@
 
 void Test_sorted(void)
 {
-    uint8_t arr[] = {1, 2, 3, 4};
+    uint32_t arr[] = {1, 2, 3, 4};
 
     uint8_t size = sizeof(arr) / sizeof(arr[0]);
     if (SearchForNumb(arr, size, 2))
@@ -25,11 +25,11 @@ void Test_sorted(void)
 
 void Test_Firstelement(void)
 {
-    uint8_t arr[] = {5, 6, 8, 11};
+    uint32_t arr[] = {1, 6, 3, 0};
 
     uint8_t size = sizeof(arr) / sizeof(arr[0]);
 
-    if (SearchForNumb(arr, size, 5))
+    if (SearchForNumb(arr, size, 1))
     {
         printf(" Test Case 2 Passed\n");
     }
@@ -41,11 +41,11 @@ void Test_Firstelement(void)
 
 void Test_Notfound(void)
 {
-    uint8_t arr[] = {1, 6, 3, 0};
+    uint32_t arr[] = {1, 6, 3, 0};
 
     uint8_t size = sizeof(arr) / sizeof(arr[0]);
 
-    if (SearchForNumb(arr, size, 0) == NOTFOUND)
+    if (SearchForNumb(arr, size, 5) == NOTFOUND)
     {
         printf(" Test Case 3 Passed\n");
     }
@@ -53,7 +53,6 @@ void Test_Notfound(void)
     {
         printf("Test Case 3 Failed\n");
     }
-    printf(" Test Case 4 Passed\n");
 }
 
 int main()
