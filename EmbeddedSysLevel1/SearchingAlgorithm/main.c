@@ -11,8 +11,6 @@ int main(void)
 {
     uint8_t size, i;
     uint32_t Numb;
-    uint8_t index;
-
     uint8_t arr[256];
 
     printf("Max Number of Element is 255 \n");
@@ -30,30 +28,8 @@ int main(void)
 
         printf("Search For: ");
         scanf("%d", &Numb);
-
-        /* check if array sorted start search */
-        if (IsArraySorted(arr, size))
-        {
-            index = binary_search(arr, size, Numb);
-            printf("Number Found in Index %d", index);
-        }
-        else
-        {
-            uint8_t *Ptr = Bubble_Sort(arr, size);
-
-            index = binary_search(Ptr, size, Numb);
-
-            /* check if search number found */
-            if (index == NOTFOUND)
-            {
-                printf("%d Not Found", Numb);
-            }
-            else
-            {
-                printf("Number Found in Index %d", index);
-                free(Ptr);
-            }
-        }
+        
+        SearchForNumb(arr, size, Numb);
     }
     else
     {

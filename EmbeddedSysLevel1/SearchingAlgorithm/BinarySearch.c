@@ -37,7 +37,7 @@ uint8_t *Bubble_Sort(uint8_t *arr, uint8_t size)
     size -= 1;
 
     /* Store array in Heap to return address */
-    for (i = 0; i < size+1; i++)
+    for (i = 0; i < size + 1; i++)
     {
         PTemp[i] = arr[i];
     }
@@ -64,13 +64,16 @@ uint8_t *Bubble_Sort(uint8_t *arr, uint8_t size)
     }
 }
 
-uint8_t binary_search(uint8_t *arr, uint8_t size, uint32_t Numb)
+sint8_t binary_search(uint8_t *arr, uint8_t size, uint32_t Numb)
 {
     uint8_t Start, End, Mid;
 
     Start = 0;
     End = size - 1;
-
+    if(arr[0] == Numb)
+    {
+        return 0;
+    }
     while (Start <= End)
     {
         Mid = End + Start;
@@ -89,4 +92,44 @@ uint8_t binary_search(uint8_t *arr, uint8_t size, uint32_t Numb)
         }
     }
     return NOTFOUND;
+}
+
+sint8_t SearchForNumb(uint8_t *arr, uint8_t size, uint32_t Numb)
+{
+    sint16_t index;
+
+    /* check if array sorted start search */
+    if (IsArraySorted(arr, size))
+    {
+        index = binary_search(arr, size, Numb);
+        if (index == NOTFOUND)
+        {
+            printf("%d Not Found", Numb);
+            return NOTFOUND;
+        }
+        else
+        {
+            printf("Number Found in Index %d", index);
+            return FOUND;
+        }
+    }
+    else
+    {
+        uint8_t *Ptr = Bubble_Sort(arr, size);
+
+        index = binary_search(Ptr, size, Numb);
+
+        /* check if search number found */
+        if (index == NOTFOUND)
+        {
+            printf("%d Not Found", Numb);
+            return NOTFOUND;
+        }
+        else
+        {
+            printf("Number Found in Index %d", index);
+            free(Ptr);
+            return FOUND;
+        }
+    }
 }
