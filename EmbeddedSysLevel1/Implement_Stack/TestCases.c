@@ -90,8 +90,8 @@ void Testcase4(void)
 
 int main()
 {
+    Testcase3();
     Testcase1();
     Testcase2();
-    Testcase3();
     Testcase4();
 }
