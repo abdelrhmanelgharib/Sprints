@@ -11,7 +11,7 @@ int main(void)
 {
     uint8_t size, i;
     uint32_t Numb;
-    uint8_t arr[256];
+    uint32_t arr[256];
 
     printf("Max Number of Element is 255 \n");
     printf("Please Enter Number of Element: ");

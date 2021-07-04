@@ -7,15 +7,15 @@
 
 #include "BinarySearch_int.h"
 
-void Swap(uint8_t *Numb1, uint8_t *Numb2)
+void Swap(uint32_t *Numb1, uint32_t *Numb2)
 {
-    uint8_t Temp;
+    uint32_t Temp;
     Temp = *Numb1;
     *Numb1 = *Numb2;
     *Numb2 = Temp;
 }
 
-uint8_t IsArraySorted(uint8_t *arr, uint8_t size)
+uint8_t IsArraySorted(uint32_t *arr, uint8_t size)
 {
     if (size == 1 || size == 0)
         return SORTED;
@@ -27,53 +27,50 @@ uint8_t IsArraySorted(uint8_t *arr, uint8_t size)
 }
 
 /* Bubble Sorting Algorithm */
-uint8_t *Bubble_Sort(uint8_t *arr, uint8_t size)
+void Bubble_Sort(uint32_t *arr, uint8_t size)
 {
     uint8_t i, j, Flag = 0;
 
-    uint8_t *PTemp = (uint8_t *)malloc(sizeof(uint8_t) * size);
-
+    // uint32_t *PTemp = (uint32_t *)malloc(sizeof(uint32_t) * size);
+    // static uint32_t PTemp[];
     /* array start from 0 to size - 1*/
     size -= 1;
 
-    /* Store array in Heap to return address */
-    for (i = 0; i < size + 1; i++)
-    {
-        PTemp[i] = arr[i];
-    }
+    // /* Store array in Heap to return address */
+    // for (i = 0; i < size + 1; i++)
+    // {
+    //     PTemp[i] = arr[i];
+    // }
 
     /* Outer loop for pass squence */
     for (i = 0; i < size; i++)
     {
-        Flag = 0;
+        // Flag = 0;
         /* internal loop to get larg element */
         for (j = 0; j < size - i; j++)
         {
-            if (PTemp[j] > PTemp[j + 1])
+            if (arr[j] > arr[j + 1])
             {
                 /* swap the larg element with small */
-                Swap(&PTemp[j], &PTemp[j + 1]);
+                Swap(&arr[j], &arr[j + 1]);
                 Flag = 1;
             }
         }
-        /* check if the array is sorted */
+        // /* check if the array is sorted */
         if (Flag == 0)
         {
-            return PTemp;
+            break;
         }
     }
 }
 
-sint8_t binary_search(uint8_t *arr, uint8_t size, uint32_t Numb)
+uint8_t binary_search(uint32_t *arr, uint8_t size, uint32_t Numb)
 {
     uint8_t Start, End, Mid;
 
     Start = 0;
     End = size - 1;
-    if(arr[0] == Numb)
-    {
-        return 0;
-    }
+
     while (Start <= End)
     {
         Mid = End + Start;
@@ -88,15 +85,15 @@ sint8_t binary_search(uint8_t *arr, uint8_t size, uint32_t Numb)
         }
         else if (arr[Mid] > Numb)
         {
-            Start = Mid - 1;
+            End = Mid - 1;
         }
     }
     return NOTFOUND;
 }
 
-sint8_t SearchForNumb(uint8_t *arr, uint8_t size, uint32_t Numb)
+sint8_t SearchForNumb(uint32_t *arr, uint8_t size, uint32_t Numb)
 {
-    sint16_t index;
+    uint8_t index;
 
     /* check if array sorted start search */
     if (IsArraySorted(arr, size))
@@ -115,9 +112,9 @@ sint8_t SearchForNumb(uint8_t *arr, uint8_t size, uint32_t Numb)
     }
     else
     {
-        uint8_t *Ptr = Bubble_Sort(arr, size);
-
-        index = binary_search(Ptr, size, Numb);
+        Bubble_Sort(arr, size);
+   
+        index = binary_search(arr, size, Numb);
 
         /* check if search number found */
         if (index == NOTFOUND)
@@ -128,7 +125,6 @@ sint8_t SearchForNumb(uint8_t *arr, uint8_t size, uint32_t Numb)
         else
         {
             printf("Number Found in Index %d", index);
-            free(Ptr);
             return FOUND;
         }
     }
