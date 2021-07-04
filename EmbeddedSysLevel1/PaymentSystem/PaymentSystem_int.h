@@ -8,8 +8,8 @@
 #ifndef PAYMENTSYSTEM_INT_
 #define PAYMENTSYSTEM_INT_
 #include <stdio.h>
+#include <string.h>
 #include "DataTypes.h"
-#include "BinarySearch_int.h"
 
 typedef struct ST_cardData_t
 {
@@ -38,8 +38,6 @@ typedef struct ST_transaction_t
     EN_transStat_t transStat;
 } ST_transaction;
 
-
-
 typedef struct ST_accountBalance_t
 {
     float balance;
@@ -47,8 +45,20 @@ typedef struct ST_accountBalance_t
 } ST_accountBalance_t;
 
 
+/*************Functions ProtoType****************/
 
-void ReadCardData(ST_transaction* card);
-void ReadTerminalData(ST_transaction* Terminal)
+void ReadCardData(ST_transaction *card);
+void ReadTerminalData(ST_transaction *Terminal);
+EN_transStat_t CheckExpired(ST_transaction *Expired);
+sint8_t CheckCardNumb(ST_transaction *AccountNumb);
+EN_transStat_t CheckBalance(ST_transaction *Balance, sint8_t* index);
+void UpdateServer(ST_transaction *server, sint8_t index);
+EN_transStat_t PaymentSystem(ST_transaction *system);
+
+
+
+
+#define NOELEMTARR  10
+#define NOTFOUND    -1
 
 #endif /* PAYMENTSYSTEM_INT_ */
