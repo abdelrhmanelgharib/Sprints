@@ -134,6 +134,7 @@ EN_transStat_t CheckBalance(ST_transaction *Balance, sint8_t *index)
     }
 }
 
+/* this function to update balance in server */
 void UpdateServer(ST_transaction *server, sint8_t index)
 {
     ServerData[index].balance -= server->transData.transAmount;
