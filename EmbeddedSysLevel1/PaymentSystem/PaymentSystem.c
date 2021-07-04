@@ -72,7 +72,7 @@ EN_transStat_t CheckExpired(ST_transaction *Expired)
             return DECLINED;
         }
     }
-    else if(Expired->cardHolderData.cardExpirationDate[i - 1] < Expired->transData.transactionDate[j - 1])
+    else if(Expired->cardHolderData.cardExpirationDate[i - 1] < Expired->transData.transactionDate[j - 1] &&  Expired->cardHolderData.cardExpirationDate[i - 2] < Expired->transData.transactionDate[j - 2])
     {
         return DECLINED;
     }
