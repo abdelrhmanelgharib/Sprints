@@ -38,7 +38,7 @@ uint8_t Stack_IsEmpty(void)
     }
 }
 
-uint8_t Stack_Push(sint8_t Data)
+uint8_t Push(sint8_t Data)
 {
     E_State_t ErrorState = E_OK;
 
@@ -60,7 +60,7 @@ uint8_t Stack_Push(sint8_t Data)
     return ErrorState;
 }
 
-uint8_t Stack_Pop(sint8_t *DataPtr)
+uint8_t pull(sint8_t *DataPtr)
 {
     E_State_t ErrorState = E_OK;
 
@@ -127,7 +127,7 @@ uint8_t *balancedParentheses(uint8_t *expression)
         /* push all open Brakets */
         if (expression[i] == '{' || expression[i] == '(')
         {
-            Stack_Push(expression[i]);
+            Push(expression[i]);
 
             /* increment count by 1 */
             PushPopCount++;
@@ -135,7 +135,7 @@ uint8_t *balancedParentheses(uint8_t *expression)
         /* check if pushed Brackets is balanced with Close Brakets */
         else if (expression[i] == '}' || expression[i] == ')')
         {
-            ErrorState = Stack_Pop(&data);
+            ErrorState = pull(&data);
 
             /* decrement count by 1 */
             PushPopCount--;

@@ -26,11 +26,11 @@ void Stack_Initilaize(void);
 
 uint8_t Stack_IsEmpty(void); 
 
-uint8_t Stack_Push(sint8_t Data);
+uint8_t Push(sint8_t Data);
 
-uint8_t Stack_Pop(sint8_t *DataPtr);
+uint8_t Pop(sint8_t *DataPtr);
 
-void Stack_Display(void);
+void printStack(void);
 
 uint8_t *balancedParentheses(uint8_t *expression);
 
