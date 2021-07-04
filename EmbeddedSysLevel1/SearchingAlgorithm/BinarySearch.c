@@ -31,16 +31,7 @@ void Bubble_Sort(uint32_t *arr, uint8_t size)
 {
     uint8_t i, j, Flag = 0;
 
-    // uint32_t *PTemp = (uint32_t *)malloc(sizeof(uint32_t) * size);
-    // static uint32_t PTemp[];
-    /* array start from 0 to size - 1*/
     size -= 1;
-
-    // /* Store array in Heap to return address */
-    // for (i = 0; i < size + 1; i++)
-    // {
-    //     PTemp[i] = arr[i];
-    // }
 
     /* Outer loop for pass squence */
     for (i = 0; i < size; i++)
