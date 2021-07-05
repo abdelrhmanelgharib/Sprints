@@ -87,7 +87,7 @@ uint8_t pull(sint8_t *DataPtr)
     return ErrorState;
 }
 
-void Stack_Display(void)
+void printStack(void)
 {
     Node_t *Ptr = Top;
     if (Stack_IsEmpty())
