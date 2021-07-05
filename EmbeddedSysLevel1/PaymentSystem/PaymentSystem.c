@@ -30,7 +30,7 @@ void ReadCardData(ST_transaction *card)
     printf("Please Enter the Primary Account Number:\n");
     fflush(stdin);
     gets(card->cardHolderData.primaryAccountNumber);
-    printf("Please card Expiry Date:\n");
+    printf("Please card Expiry Date(MM/YY):\n");
     scanf("%s", card->cardHolderData.cardExpirationDate);
 }
 
@@ -39,7 +39,7 @@ void ReadTerminalData(ST_transaction *Terminal)
     printf("Please Enter Terminal Data:\n");
     printf("Please Enter the transaction Amount:\n");
     scanf("%f", &Terminal->transData.transAmount);
-    printf("Please Enter transaction Date:\n");
+    printf("Please Enter transaction Date(DD/MM/YYYY):\n");
     fflush(stdin);
     gets(Terminal->transData.transactionDate);
 }
