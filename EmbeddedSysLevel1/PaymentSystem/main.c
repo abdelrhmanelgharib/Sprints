@@ -31,9 +31,17 @@ int main()
             fflush(stdin);
             scanf("%c", &contne);
         }
+        while (contne != 'y' && contne != 'n')
+        {
+            fflush(stdin);
+            printf("Wrong Enter.\n");
+            printf("Do you want to continue (y/n)?\n");
+            scanf("%c", &contne);
+        }
         if (contne == 'n')
         {
             break;
         }
+        contne = 0;
     }
 }
