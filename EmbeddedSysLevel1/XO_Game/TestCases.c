@@ -4,7 +4,7 @@
  *  Created on: July 3, 2021															*
  *      Author: Elgharib																*
  ****************************************************************************************/
-#include <stdio.h>
+
 #include "X_O_int.h"
 
 extern char pos[9];
