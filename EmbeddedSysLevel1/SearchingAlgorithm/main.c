@@ -7,7 +7,7 @@
 
 #include "BinarySearch_int.h"
 
-int main(void)
+        int main(void)
 {
     uint8_t size, i;
     uint32_t Numb;

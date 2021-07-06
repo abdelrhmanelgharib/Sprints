@@ -18,7 +18,7 @@ typedef char E_state;
 uint8_t IsArraySorted(uint32_t *arr, uint8_t size);
 void Bubble_Sort(uint32_t *arr, uint8_t size);
 uint8_t binary_search(uint32_t *arr, uint8_t size, uint32_t Numb);
-sint8_t SearchForNumb(uint32_t* arr, uint8_t size, uint32_t Numb);
+E_state SearchForNumb(uint32_t *arr, uint8_t size, uint32_t Numb);
 
 
 
@@ -26,6 +26,9 @@ sint8_t SearchForNumb(uint32_t* arr, uint8_t size, uint32_t Numb);
 #define SORTED      1
 #define NOTFOUND    0
 #define FOUND       1
+#define TEST        1
+#define E_OK        1
+#define ERROR       0
 
 
 

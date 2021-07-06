@@ -8,6 +8,10 @@
 #include "BinarySearch_int.h"
 
 
+/****************************************************************************
+ *  Please change MACRO TEST in BinarySearch_int.h to 0 before strt Testing *
+ ****************************************************************************/
+
 void Test_sorted(void)
 {
     uint32_t arr[] = {1, 2, 3, 4};
