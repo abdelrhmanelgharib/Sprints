@@ -37,7 +37,7 @@ void Bordervoid(void)
 */
 Player_t EnterPlayer1(void)
 {
-    Player_t player1, player2;
+    Player_t player1;
 
     printf("Enter name of first player: ");
     scanf("%s", player1.name);
