@@ -1,1 +1,4 @@
 .vscode
+/.metadata/
+.DIO
+.timer0
