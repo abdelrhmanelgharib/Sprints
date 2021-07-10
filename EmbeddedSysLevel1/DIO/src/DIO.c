@@ -7,9 +7,7 @@
  * 
  */
 
-
 #include "DIO_Interface.h"
-
 
 /**
  * @brief This Function to change Pin value HIGH | LOW
@@ -17,9 +15,13 @@
  * @param EN_Port   PORT Name
  * @param EN_Pin    PIN Number
  * @param EN_Value  HIGH or LOW
+ * @return EN_ERRORSTATE_t E_OK OR ERROR
  */
-void DIO_voidSetPinValue(EN_port_num EN_Port, EN_pin_num EN_Pin, EN_value_type EN_Value)
+EN_ERRORSTATE_t DIO_voidSetPinValue(EN_port_num EN_Port, EN_pin_num EN_Pin, EN_value_type EN_Value)
 {
+    EN_ERRORSTATE_t state;
+    state = E_OK;
+
     if (EN_Value == LOW)
     {
         switch (EN_Port)
@@ -35,6 +37,9 @@ void DIO_voidSetPinValue(EN_port_num EN_Port, EN_pin_num EN_Pin, EN_value_type E
             break;
         case PORT_D:
             CLRBIT(PORTD, EN_Pin);
+            break;
+        default:
+            state = E_Value;
             break;
         }
     }
@@ -54,19 +59,28 @@ void DIO_voidSetPinValue(EN_port_num EN_Port, EN_pin_num EN_Pin, EN_value_type E
         case PORT_D:
             SETBIT(PORTD, EN_Pin);
             break;
+        default:
+            state = E_Value;
+            break;
         }
     }
-}   /*  */
+    return state;
+} /* DIO_voidSetPinValue */
+
 
 /**
  * @brief This Function to change DIrection of Pins 
  * 
- * @param EN_port       PORT Name
- * @param EN_Pin        PIN Number
- * @param EN_Direction  Direction of the Pin INPUT | OUTPUT
+ * @param EN_port PORT Name
+ * @param EN_Pin  PIN Number
+ * @param EN_Direction Direction of the Pin INPUT | OUTPUT
+ * @return EN_ERRORSTATE_t E_OK OR ERROR
  */
-void DIO_voidSetPinDirection(EN_port_num EN_port, EN_pin_num EN_Pin, EN_direction_type EN_Direction)
+EN_ERRORSTATE_t DIO_voidSetPinDirection(EN_port_num EN_port, EN_pin_num EN_Pin, EN_direction_type EN_Direction)
 {
+    EN_ERRORSTATE_t state;
+    state = E_OK;
+
     if (EN_Direction == INPUT)
     {
         switch (EN_port)
@@ -82,6 +96,9 @@ void DIO_voidSetPinDirection(EN_port_num EN_port, EN_pin_num EN_Pin, EN_directio
             break;
         case PORT_D:
             CLRBIT(DDRD, EN_Pin);
+            break;
+        default:
+            state = E_Direc;
             break;
         }
     }
@@ -101,9 +118,14 @@ void DIO_voidSetPinDirection(EN_port_num EN_port, EN_pin_num EN_Pin, EN_directio
         case PORT_D:
             SETBIT(DDRD, EN_Pin);
             break;
+        default:
+            state = E_Direc;
+            break;
         }
     }
-}   /* DIO_voidSetPinDirection */
+    return state;
+} /* DIO_voidSetPinDirection */
+
 
 /**
  * @brief This Function to check value in the pin 
@@ -131,16 +153,21 @@ EN_value_type DIO_u8GetPinValue(EN_port_num EN_Port, EN_pin_num EN_Pin)
         break;
     }
     return EN_ret_val;
-}   /* DIO_u8GetPinValue */
+} /* DIO_u8GetPinValue */
+
 
 /**
  * @brief This Function to Toggel Pin 
  * 
- * @param EN_Port   PORT Name
-* @param EN_Pin     PIN Number
+ * @param EN_Port PORT Name
+ * @param EN_Pin PIN Number
+ * @return EN_ERRORSTATE_t E_OK OR ERROR
  */
-void DIO_voidTogPin(EN_port_num EN_Port, EN_pin_num EN_Pin)
+EN_ERRORSTATE_t DIO_voidTogPin(EN_port_num EN_Port, EN_pin_num EN_Pin)
 {
+    EN_ERRORSTATE_t state;
+    state = E_OK;
+
     switch (EN_Port)
     {
     case PORT_A:
@@ -155,17 +182,26 @@ void DIO_voidTogPin(EN_port_num EN_Port, EN_pin_num EN_Pin)
     case PORT_D:
         TGLBIT(PORTD, EN_Pin);
         break;
+    default:
+        state = E_PORT;
+        break;
     }
-}   /* DIO_voidTogPin */
+
+    return state;
+} /* DIO_voidTogPin */
+
 
 /**
- * @brief   This Funtion to Set Value of all Pins in the Port
+ * @brief This Funtion to Set Value of all Pins in the Port
  * 
- * @param EN_Port   PORT Name
- * @param EN_Value  HIGH | LOW
+ * @param EN_Port PORT Name
+ * @param EN_Value HIGH | LOW
+ * @return EN_ERRORSTATE_t E_OK OR ERROR
  */
-void DIO_voidSetPortValue(EN_port_num EN_Port, EN_value_type EN_Value)
+EN_ERRORSTATE_t DIO_voidSetPortValue(EN_port_num EN_Port, EN_value_type EN_Value)
 {
+    EN_ERRORSTATE_t state;
+    state = E_OK;
     switch (EN_Port)
     {
     case PORT_A:
@@ -180,17 +216,26 @@ void DIO_voidSetPortValue(EN_port_num EN_Port, EN_value_type EN_Value)
     case PORT_D:
         PORTD = EN_Value;
         break;
+    default:
+        state = E_PORT;
+        break;
     }
+    return state;
 } /* DIO_voidSetPortValue */
+
 
 /**
  * @brief This Funtion to Set Direction of all Pins in the Port
  * 
- * @param EN_Port   PORT Name
+ * @param EN_Port PORT Name
  * @param EN_Direction PORT Direction
+ * @return EN_ERRORSTATE_t E_OK OR ERROR
  */
-void DIO_voidSetPortDirection(EN_port_num EN_Port, EN_direction_type EN_Direction)
+EN_ERRORSTATE_t DIO_voidSetPortDirection(EN_port_num EN_Port, EN_direction_type EN_Direction)
 {
+    EN_ERRORSTATE_t state;
+    state = E_OK;
+
     switch (EN_Port)
     {
     case PORT_A:
@@ -205,18 +250,26 @@ void DIO_voidSetPortDirection(EN_port_num EN_Port, EN_direction_type EN_Directio
     case PORT_D:
         DDRD = EN_Direction;
         break;
+    default:
+        state = E_PORT;
+        break;
     }
+    return state;
 
 } /* DIO_voidSetPortDirection */
 
+
 /**
- * @brief   This Function to change pin to Pull Up
+ * @brief This Function to change pin to Pull Up
  * 
- * @param EN_Port   PORT Name
- * @param EN_Pin    PIN Number
+ * @param EN_Port PORT Name
+ * @param EN_Pin PIN Number
+ * @return EN_ERRORSTATE_t E_OK OR ERROR
  */
-void DIO_voidInpullUp(EN_port_num EN_Port, EN_pin_num EN_Pin)
+EN_ERRORSTATE_t DIO_voidInpullUp(EN_port_num EN_Port, EN_pin_num EN_Pin)
 {
+    EN_ERRORSTATE_t state;
+    state = E_OK;
     switch (EN_Port)
     {
     case PORT_A:
@@ -235,5 +288,9 @@ void DIO_voidInpullUp(EN_port_num EN_Port, EN_pin_num EN_Pin)
         CLRBIT(DDRD, EN_Pin);
         SETBIT(PORTD, EN_Pin);
         break;
+    default:
+        state = E_PORT;
+        break;
     }
+    return state;
 } /* DIO_voidInpullUp */
