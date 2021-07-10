@@ -7,7 +7,6 @@
  * 
  */
 
-
 #include "Timer.h"
 
 /****************************Pointer to functions to be assigned to ISR*********************************/
@@ -18,7 +17,6 @@ static void (*Timer1_OCB_Fptr)(void) = NULLPTR;
 static void (*Timer1_ICU_Fptr)(void) = NULLPTR;
 
 static void (*Timer0_OVF_Fptr)(void) = NULLPTR;
-
 
 static uint16_t gPrescal = 1;
 static volatile uint32_t gOVFNUM = 1;
@@ -31,9 +29,13 @@ static volatile uint32_t gOVFNUM = 1;
  * @param mode TIMER0 Modes
  * @param scaler TIMER Prescaler
  * @param oc_mode OC0 mode
+ * @return EN_ERRORSTATE_t 
  */
-void Timer0_Init(EN_Timer0Mode_t mode, EN_Timer0Scaler_t scaler, EN_OC0Mode_t oc_mode)
+EN_ERRORSTATE_t Timer0_Init(EN_Timer0Mode_t mode, EN_Timer0Scaler_t scaler, EN_OC0Mode_t oc_mode)
 {
+	EN_ERRORSTATE_t state;
+	state = E_OK;
+
 	switch (mode)
 	{
 	case TIMER0_NORMAL_MODE:
@@ -51,6 +53,9 @@ void Timer0_Init(EN_Timer0Mode_t mode, EN_Timer0Scaler_t scaler, EN_OC0Mode_t oc
 	case TIMER0_FASTPWM_MODE:
 		SETBIT(TCCR0, WGM00);
 		SETBIT(TCCR0, WGM01);
+		break;
+	default:
+		state = E_ERROR;
 		break;
 	}
 
@@ -76,7 +81,11 @@ void Timer0_Init(EN_Timer0Mode_t mode, EN_Timer0Scaler_t scaler, EN_OC0Mode_t oc
 		SETBIT(TCCR0, COM00);
 		SETBIT(TCCR0, COM01);
 		break;
+	default:
+		state = E_ERROR;
+		break;
 	}
+	return state;
 }
 
 /**
@@ -116,7 +125,6 @@ void Timer0_OC_InterruptDisable(void)
 	CLRBIT(TIMSK, OCIE0);
 }
 
-
 /**
  * @brief call back funcion
  * 
@@ -128,17 +136,21 @@ void Timer0_SetCallBack(void (*LocalFptr)(void))
 }
 
 /**
- * @brief delay using timer
+ * @brief  delay using timer
  * 
- * @param Time  desired time
+ * @param Time desired time
+ * @return EN_ERRORSTATE_t 
  */
-void Timer0_delayUs(uint32_t Time)
+EN_ERRORSTATE_t Timer0_delayUs(uint32_t Time)
 {
+	EN_ERRORSTATE_t state;
+	state = E_OK;
+
 	if (gPrescal == TIMER0_SCALER_8)
 	{
 		gPrescal = 8;
 	}
-	else if(gPrescal == TIMER0_SCALER_64)
+	else if (gPrescal == TIMER0_SCALER_64)
 	{
 		gPrescal = 64;
 	}
@@ -150,11 +162,16 @@ void Timer0_delayUs(uint32_t Time)
 	{
 		gPrescal = 1024;
 	}
+	else
+	{
+		state = E_ERROR;
+	}
 
 	float TickTime = gPrescal / F_CPU;
 	uint32_t numbOfTick = Time / TickTime;
 	gOVFNUM = numbOfTick / 250;
 
+	return state;
 }
 
 ISR(TIMER0_OVF_vect)
@@ -181,9 +198,13 @@ ISR(TIMER0_OVF_vect)
  * @param scaler TIMER1 Prescaler
  * @param oc1a_mode 
  * @param oc1b_mode 
+ * @return EN_ERRORSTATE_t 
  */
-void Timer1_Init(Timer1Mode_type mode, Timer1Scaler_type scaler, OC1A_Mode_type oc1a_mode, OC1B_Mode_type oc1b_mode)
+EN_ERRORSTATE_t Timer1_Init(Timer1Mode_type mode, Timer1Scaler_type scaler, OC1A_Mode_type oc1a_mode, OC1B_Mode_type oc1b_mode)
 {
+	EN_ERRORSTATE_t state;
+	state = E_OK;
+
 	switch (mode)
 	{
 	case TIMER1_NORMAL_MODE:
@@ -219,7 +240,11 @@ void Timer1_Init(Timer1Mode_type mode, Timer1Scaler_type scaler, OC1A_Mode_type 
 		SETBIT(TCCR1B, WGM12);
 		SETBIT(TCCR1B, WGM13);
 		break;
+	default:
+		state = E_ERROR;
+		break
 	}
+
 	switch (oc1a_mode)
 	{
 	case OCRA_DISCONNECTED:
@@ -238,7 +263,11 @@ void Timer1_Init(Timer1Mode_type mode, Timer1Scaler_type scaler, OC1A_Mode_type 
 		SETBIT(TCCR1A, COM1A0);
 		SETBIT(TCCR1A, COM1A1);
 		break;
+	default:
+		state = E_ERROR;
+		break
 	}
+
 	switch (oc1b_mode)
 	{
 	case OCRB_DISCONNECTED:
@@ -257,10 +286,15 @@ void Timer1_Init(Timer1Mode_type mode, Timer1Scaler_type scaler, OC1A_Mode_type 
 		SETBIT(TCCR1A, COM1B0);
 		SETBIT(TCCR1A, COM1B1);
 		break;
+	default:
+		state = E_ERROR;
+		break
 	}
 
 	TCCR1B &= 0XF8;
 	TCCR1B |= scaler;
+
+	return state;
 }
 
 void Timer1_InputCaptureEdge(ICU_Edge_type edge)

@@ -38,6 +38,12 @@ typedef enum
 	OCO_INVERTING
 }EN_OC0Mode_t;
 
+typedef enum
+{
+   E_ERROR,
+    E_OK
+}EN_ERRORSTATE_t;
+
 
 
 void Timer0_Init(EN_Timer0Mode_t mode,EN_Timer0Scaler_t scaler ,EN_OC0Mode_t oc_mode);
