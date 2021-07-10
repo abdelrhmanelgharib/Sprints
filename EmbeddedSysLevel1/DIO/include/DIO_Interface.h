@@ -38,13 +38,17 @@ typedef enum
 typedef enum
 {
     INPUT = 0 ,
-    OUTPUT
+    OUTPUT ,
+    PRTOUTPUT = 0xFF,
+    PRTINPUT = 0x00    
 }EN_direction_type;
 
 typedef enum
 {
     LOW = 0 ,
-    HIGH
+    HIGH ,
+    PRTHIGH = 0xFF,
+    PRTLOW = 0
 }EN_value_type;
 
 
