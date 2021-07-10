@@ -95,7 +95,6 @@ void Timer0_OV_InterruptEnable(void)
  */
 void Timer0_OV_InterruptDisable(void)
 {
-	SETBIT(SREG, I_BIT);
 	CLRBIT(TIMSK, TOIE0);
 }
 
@@ -105,7 +104,6 @@ void Timer0_OV_InterruptDisable(void)
  */
 void Timer0_OC_InterruptEnable(void)
 {
-	SETBIT(SREG, I_BIT);
 	SETBIT(TIMSK, OCIE0);
 }
 
