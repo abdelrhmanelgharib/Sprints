@@ -9,7 +9,7 @@
 
 #include "DIO_Interface.h"
 #include "Timer.h"
-#include <avr/delay.h>
+
 
 void APP(void)
 {
@@ -23,16 +23,16 @@ int main()
 
   Timer0_Init(TIMER0_NORMAL_MODE, TIMER0_SCALER_8, OCO_DISCONNECTED);
   Timer0_SetCallBack(APP);
-  Timer0_delay(2000000);
+  Timer0_delayUs(2000000);
   Timer0_OV_InterruptEnable();
 
   while (1)
   {
-    _delay_ms(100);
+
     DIO_voidTogPin(PORT_B, PIN1);
-    _delay_ms(100);
+
 
    
   }
-   return 0;
+  return 0;
 }
