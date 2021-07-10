@@ -309,6 +309,7 @@ void Timer1_InputCaptureEdge(ICU_Edge_type edge)
 
 void Timer1_ICU_InterruptEnable(void)
 {
+	SETBIT(SREG, I_BIT);
 	SETBIT(TIMSK, TICIE1);
 }
 void Timer1_ICU_InterruptDisable(void)
@@ -317,6 +318,7 @@ void Timer1_ICU_InterruptDisable(void)
 }
 void Timer1_OVF_InterruptEnable(void)
 {
+	SETBIT(SREG, I_BIT);
 	SETBIT(TIMSK, TOIE1);
 }
 void Timer1_OVF_InterruptDisable(void)
@@ -325,6 +327,7 @@ void Timer1_OVF_InterruptDisable(void)
 }
 void Timer1_OCA_InterruptEnable(void)
 {
+	SETBIT(SREG, I_BIT);
 	SETBIT(TIMSK, OCIE1A);
 }
 void Timer1_OCA_InterruptDisable(void)
@@ -333,6 +336,7 @@ void Timer1_OCA_InterruptDisable(void)
 }
 void Timer1_OCB_InterruptEnable(void)
 {
+	SETBIT(SREG, I_BIT);
 	SETBIT(TIMSK, OCIE1B);
 }
 void Timer1_OCB_InterruptDisable(void)

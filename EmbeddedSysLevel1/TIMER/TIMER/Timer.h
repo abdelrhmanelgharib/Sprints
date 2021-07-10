@@ -46,12 +46,12 @@ typedef enum
 
 
 
-void Timer0_Init(EN_Timer0Mode_t mode,EN_Timer0Scaler_t scaler ,EN_OC0Mode_t oc_mode);
+EN_ERRORSTATE_t Timer0_Init(EN_Timer0Mode_t mode,EN_Timer0Scaler_t scaler ,EN_OC0Mode_t oc_mode);
 void Timer0_OV_InterruptEnable(void);
 void Timer0_OV_InterruptDisable(void);
 void Timer0_OC_InterruptEnable(void);
 void Timer0_OC_InterruptDisable(void);
-void Timer0_delayUs(uint32_t Time);
+EN_ERRORSTATE_t Timer0_delayUs(uint32_t Time);
 
 void Timer0_SetCallBack(void(*local_pf)(void));
 
@@ -107,7 +107,7 @@ typedef enum{
 
 
 void Timer1_InputCaptureEdge(ICU_Edge_type edge);
-void Timer1_Init(Timer1Mode_type mode,Timer1Scaler_type scaler,OC1A_Mode_type oc1a_mode,OC1B_Mode_type oc1b_mode);
+EN_ERRORSTATE_t Timer1_Init(Timer1Mode_type mode,Timer1Scaler_type scaler,OC1A_Mode_type oc1a_mode,OC1B_Mode_type oc1b_mode);
 
 void Timer1_ICU_InterruptEnable(void);
 void Timer1_ICU_InterruptDisable(void);
