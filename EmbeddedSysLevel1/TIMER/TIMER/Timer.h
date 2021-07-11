@@ -1,10 +1,9 @@
 #ifndef TIMER_H_
 #define TIMER_H_
 
-#include "avr/interrupt.h"
 #include "DataTypes.h"
 #include "BIT_Math.h"
- 
+#include "TIMER_priv.h" 
 #include "Memmap.h"
 
 #define NULLPTR (void*)0

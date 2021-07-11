@@ -23,7 +23,7 @@ int main()
 
   Timer0_Init(TIMER0_NORMAL_MODE, TIMER0_SCALER_8, OCO_DISCONNECTED);
   Timer0_SetCallBack(APP);
-  Timer0_delayUs(2000000);
+  Timer0_delayUs(1000000);
   Timer0_OV_InterruptEnable();
 
   while (1)

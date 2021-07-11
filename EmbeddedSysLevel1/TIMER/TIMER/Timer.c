@@ -174,7 +174,7 @@ EN_ERRORSTATE_t Timer0_delayUs(uint32_t Time)
 	return state;
 }
 
-ISR(TIMER0_OVF_vect)
+void __vector_11(void)
 {
 	TCNT0 = 6;
 	static volatile uint32_t count = 0;
@@ -242,7 +242,7 @@ EN_ERRORSTATE_t Timer1_Init(Timer1Mode_type mode, Timer1Scaler_type scaler, OC1A
 		break;
 	default:
 		state = E_ERROR;
-		break
+		break;
 	}
 
 	switch (oc1a_mode)
@@ -265,7 +265,7 @@ EN_ERRORSTATE_t Timer1_Init(Timer1Mode_type mode, Timer1Scaler_type scaler, OC1A
 		break;
 	default:
 		state = E_ERROR;
-		break
+		break;
 	}
 
 	switch (oc1b_mode)
@@ -288,7 +288,7 @@ EN_ERRORSTATE_t Timer1_Init(Timer1Mode_type mode, Timer1Scaler_type scaler, OC1A
 		break;
 	default:
 		state = E_ERROR;
-		break
+		break;
 	}
 
 	TCCR1B &= 0XF8;
@@ -364,28 +364,29 @@ void Timer1_ICU_SetCallBack(void (*LocalFptr)(void))
 }
 
 /*********************************Timer 1 ISR functions*********************************************/
-ISR(TIMER1_OVF_vect)
+void __vector_9(void)
 {
 	if (Timer1_OVF_Fptr != NULLPTR)
 	{
 		Timer1_OVF_Fptr();
 	}
 }
-ISR(TIMER1_OCA_vect)
+
+void __vector_7(void)
 {
 	if (Timer1_OCA_Fptr != NULLPTR)
 	{
 		Timer1_OCA_Fptr();
 	}
 }
-ISR(TIMER1_OCB_vect)
+void __vector_8(void)
 {
 	if (Timer1_OCB_Fptr != NULLPTR)
 	{
 		Timer1_OCB_Fptr();
 	}
 }
-ISR(TIMER1_ICU_vect)
+void __vector_6(void)
 {
 	if (Timer1_ICU_Fptr != NULLPTR)
 	{
