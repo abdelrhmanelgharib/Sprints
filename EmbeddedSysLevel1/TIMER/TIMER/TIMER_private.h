@@ -11,6 +11,7 @@
 #ifndef TIMER_PRIVAT_H_
 #define TIMER_PRIVAT_H_
 
+#define  TIMER0_REG_CAPACITY		256
 
 /* TIMER1_ICU_vect */
 void __vector_6(void) __attribute__((signal));

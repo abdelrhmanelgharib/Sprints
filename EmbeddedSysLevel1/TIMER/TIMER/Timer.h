@@ -51,6 +51,8 @@ void Timer0_OV_InterruptDisable(void);
 void Timer0_OC_InterruptEnable(void);
 void Timer0_OC_InterruptDisable(void);
 EN_ERRORSTATE_t Timer0_delayUs(uint32_t Time);
+void TIMER0_voidPhaseCorrect(uint8_t DutyCycle,EN_OC0Mode_t ocomode);
+void TIMER0_voidFastPWM(uint8_t DutyCycle, EN_OC0Mode_t ocomode);
 
 void Timer0_SetCallBack(void(*local_pf)(void));
 

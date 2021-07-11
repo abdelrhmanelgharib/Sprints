@@ -88,6 +88,45 @@ EN_ERRORSTATE_t Timer0_Init(EN_Timer0Mode_t mode, EN_Timer0Scaler_t scaler, EN_O
 	return state;
 }
 
+
+/**
+ * @brief take dutycycle and OCO pin mode
+ * 
+ * @param DutyCycle speed
+ * @param ocomode OCO_INVERTING - OCO_NON_INVERTING
+ */
+void TIMER0_voidPhaseCorrect(uint8_t DutyCycle, EN_OC0Mode_t ocomode)
+{
+	if (ocomode == OCO_INVERTING )
+	{
+		OCR0 = 255 - ((TIMER0_REG_CAPACITY * DutyCycle)/100);
+	}
+	
+	else if (ocomode == OCO_NON_INVERTING)
+	{
+		OCR0 = (255 * DutyCycle)/100;
+	}
+}
+
+
+/**
+ * @brief take dutycycle and OCO pin mode
+ * 
+ * @param DutyCycle speed
+ * @param ocomode OCO_INVERTING - OCO_NON_INVERTING
+ */
+void TIMER0_voidFastPWM(uint8_t DutyCycle, EN_OC0Mode_t ocomode)
+{
+	if (ocomode == OCO_INVERTING)
+	{
+		OCR0 = ((TIMER0_REG_CAPACITY * DutyCycle)/100)-1;
+	}
+	else if (ocomode == OCO_NON_INVERTING)
+	{
+		OCR0 = 255 - ((TIMER0_REG_CAPACITY * DutyCycle)/100);
+	}
+}
+
 /**
  * @brief Enable Over FLow Interrupt 
  * 

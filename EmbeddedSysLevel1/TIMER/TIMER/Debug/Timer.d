@@ -1,5 +1,5 @@
 Timer.d Timer.o: .././Timer.c .././Timer.h .././DataTypes.h \
- .././BIT_Math.h .././TIMER_priv.h .././Memmap.h
+ .././BIT_Math.h .././TIMER_private.h .././Memmap.h
 
 .././Timer.h:
 
@@ -7,6 +7,6 @@ Timer.d Timer.o: .././Timer.c .././Timer.h .././DataTypes.h \
 
 .././BIT_Math.h:
 
-.././TIMER_priv.h:
+.././TIMER_private.h:
 
 .././Memmap.h:
