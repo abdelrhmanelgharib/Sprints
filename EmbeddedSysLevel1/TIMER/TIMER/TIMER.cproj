@@ -150,7 +150,7 @@
     <Compile Include="Timer.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="TIMER_priv.h">
+    <Compile Include="TIMER_private.h">
       <SubType>compile</SubType>
     </Compile>
   </ItemGroup>
