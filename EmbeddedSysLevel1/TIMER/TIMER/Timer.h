@@ -3,7 +3,7 @@
 
 #include "DataTypes.h"
 #include "BIT_Math.h"
-#include "TIMER_priv.h" 
+#include "TIMER_private.h" 
 #include "Memmap.h"
 
 #define NULLPTR (void*)0
