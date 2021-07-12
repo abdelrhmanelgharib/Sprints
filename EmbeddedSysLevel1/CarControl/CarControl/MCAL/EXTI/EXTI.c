@@ -1,6 +1,6 @@
 /**
  * @file EXTI.c
- * @author Team_3
+ * @author Vicious
  * @brief This File for External Interrupts
  * @version 0.1
  * @date 2021-07-10

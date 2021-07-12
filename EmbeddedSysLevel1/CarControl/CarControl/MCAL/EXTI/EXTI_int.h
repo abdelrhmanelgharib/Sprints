@@ -1,6 +1,6 @@
 /**
  * @file EXTI_int.h
- * @author Team_3
+ * @author Vicious
  * @brief 
  * @version 0.1
  * @date 2021-07-11

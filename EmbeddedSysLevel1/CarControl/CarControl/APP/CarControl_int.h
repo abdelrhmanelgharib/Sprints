@@ -1,6 +1,6 @@
 /**
- * @file main.h
- * @author Team_3
+ * @file CarControl_int.h
+ * @author Vicious
  * @brief 
  * @version 0.1
  * @date 2021-07-11
@@ -21,7 +21,8 @@
 
 #define  BACKWARD_30	4
 
-
+void Car_init(void);
+void Car_Control(void);
 
 
 #endif /* MAIN_H_ */

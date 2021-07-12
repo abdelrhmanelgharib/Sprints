@@ -33,9 +33,9 @@ c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/..
 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_exit.o)
                               C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.3.300/gcc/dev/atmega32/avr5/crtatmega32.o (exit)
 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_copy_data.o)
-                              main.o (__do_copy_data)
+                              APP/CarControl.o (__do_copy_data)
 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_clear_bss.o)
-                              main.o (__do_clear_bss)
+                              APP/CarControl.o (__do_clear_bss)
 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_udivmodhi4.o)
                               c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_divmodhi4.o) (__udivmodhi4)
 
@@ -43,15 +43,18 @@ Discarded input sections
 
  .data          0x00000000        0x0 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.3.300/gcc/dev/atmega32/avr5/crtatmega32.o
  .bss           0x00000000        0x0 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.3.300/gcc/dev/atmega32/avr5/crtatmega32.o
+ .text          0x00000000        0x0 APP/CarControl.o
+ .data          0x00000000        0x0 APP/CarControl.o
+ .bss           0x00000000        0x0 APP/CarControl.o
+ .text          0x00000000        0x0 APP/main.o
+ .data          0x00000000        0x0 APP/main.o
+ .bss           0x00000000        0x0 APP/main.o
  .text          0x00000000        0x0 HAL/MOTOR/MOTOR_Program.o
  .data          0x00000000        0x0 HAL/MOTOR/MOTOR_Program.o
  .bss           0x00000000        0x0 HAL/MOTOR/MOTOR_Program.o
  .text          0x00000000        0x0 HAL/SWITCH/SWITCH_prog.o
  .data          0x00000000        0x0 HAL/SWITCH/SWITCH_prog.o
  .bss           0x00000000        0x0 HAL/SWITCH/SWITCH_prog.o
- .text          0x00000000        0x0 main.o
- .data          0x00000000        0x0 main.o
- .bss           0x00000000        0x0 main.o
  .text          0x00000000        0x0 MCAL/DIO/DIO.o
  .data          0x00000000        0x0 MCAL/DIO/DIO.o
  .bss           0x00000000        0x0 MCAL/DIO/DIO.o
@@ -284,9 +287,10 @@ user_signatures  0x00850000         0x00000400         rw !x
 Linker script and memory map
 
 LOAD C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.3.300/gcc/dev/atmega32/avr5/crtatmega32.o
+LOAD APP/CarControl.o
+LOAD APP/main.o
 LOAD HAL/MOTOR/MOTOR_Program.o
 LOAD HAL/SWITCH/SWITCH_prog.o
-LOAD main.o
 LOAD MCAL/DIO/DIO.o
 LOAD MCAL/EXTI/EXTI.o
 LOAD MCAL/TIMER/Timer.o
@@ -399,7 +403,7 @@ END GROUP
 .rela.plt
  *(.rela.plt)
 
-.text           0x00000000      0xcde
+.text           0x00000000      0xcea
  *(.vectors)
  .vectors       0x00000000       0x54 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.3.300/gcc/dev/atmega32/avr5/crtatmega32.o
                 0x00000000                __vector_default
@@ -473,95 +477,101 @@ END GROUP
                 0x0000008e                __vector_20
                 0x00000092                . = ALIGN (0x2)
  *(.text.*)
- .text.MOTOR_voidInit
-                0x00000092       0x70 HAL/MOTOR/MOTOR_Program.o
-                0x00000092                MOTOR_voidInit
- .text.MOTOR_voidRotateClkWise
-                0x00000102       0x7e HAL/MOTOR/MOTOR_Program.o
-                0x00000102                MOTOR_voidRotateClkWise
- .text.MOTOR_voidRotateAntiClkWise
-                0x00000180       0x7e HAL/MOTOR/MOTOR_Program.o
-                0x00000180                MOTOR_voidRotateAntiClkWise
- .text.MOTOR_voidGeneratePWM
-                0x000001fe        0x8 HAL/MOTOR/MOTOR_Program.o
-                0x000001fe                MOTOR_voidGeneratePWM
- .text.MOTOR_voidStop
-                0x00000206       0x34 HAL/MOTOR/MOTOR_Program.o
-                0x00000206                MOTOR_voidStop
- .text.SWITCH_u8GetState
-                0x0000023a       0x56 HAL/SWITCH/SWITCH_prog.o
-                0x0000023a                SWITCH_u8GetState
  .text.PWMButton
-                0x00000290       0x62 main.o
-                0x00000290                PWMButton
+                0x00000092       0x62 APP/CarControl.o
+                0x00000092                PWMButton
  .text.MotorButton
-                0x000002f2       0x20 main.o
-                0x000002f2                MotorButton
- .text.main     0x00000312      0x1a2 main.o
-                0x00000312                main
+                0x000000f4       0x20 APP/CarControl.o
+                0x000000f4                MotorButton
+ .text.Car_init
+                0x00000114       0x92 APP/CarControl.o
+                0x00000114                Car_init
+ .text.Car_Control
+                0x000001a6      0x112 APP/CarControl.o
+                0x000001a6                Car_Control
+ .text.main     0x000002b8        0xa APP/main.o
+                0x000002b8                main
+ .text.MOTOR_voidInit
+                0x000002c2       0x70 HAL/MOTOR/MOTOR_Program.o
+                0x000002c2                MOTOR_voidInit
+ .text.MOTOR_voidRotateClkWise
+                0x00000332       0x7e HAL/MOTOR/MOTOR_Program.o
+                0x00000332                MOTOR_voidRotateClkWise
+ .text.MOTOR_voidRotateAntiClkWise
+                0x000003b0       0x7e HAL/MOTOR/MOTOR_Program.o
+                0x000003b0                MOTOR_voidRotateAntiClkWise
+ .text.MOTOR_voidGeneratePWM
+                0x0000042e        0x8 HAL/MOTOR/MOTOR_Program.o
+                0x0000042e                MOTOR_voidGeneratePWM
+ .text.MOTOR_voidStop
+                0x00000436       0x34 HAL/MOTOR/MOTOR_Program.o
+                0x00000436                MOTOR_voidStop
+ .text.SWITCH_u8GetState
+                0x0000046a       0x56 HAL/SWITCH/SWITCH_prog.o
+                0x0000046a                SWITCH_u8GetState
  .text.DIO_voidSetPinValue
-                0x000004b4       0xfc MCAL/DIO/DIO.o
-                0x000004b4                DIO_voidSetPinValue
+                0x000004c0       0xfc MCAL/DIO/DIO.o
+                0x000004c0                DIO_voidSetPinValue
  .text.DIO_voidSetPinDirection
-                0x000005b0       0xfc MCAL/DIO/DIO.o
-                0x000005b0                DIO_voidSetPinDirection
+                0x000005bc       0xfc MCAL/DIO/DIO.o
+                0x000005bc                DIO_voidSetPinDirection
  .text.DIO_u8GetPinValue
-                0x000006ac       0x62 MCAL/DIO/DIO.o
-                0x000006ac                DIO_u8GetPinValue
+                0x000006b8       0x62 MCAL/DIO/DIO.o
+                0x000006b8                DIO_u8GetPinValue
  .text.DIO_voidInpullUp
-                0x0000070e       0x9c MCAL/DIO/DIO.o
-                0x0000070e                DIO_voidInpullUp
+                0x0000071a       0x9c MCAL/DIO/DIO.o
+                0x0000071a                DIO_voidInpullUp
  .text.EXTI_ENEnable
-                0x000007aa       0x40 MCAL/EXTI/EXTI.o
-                0x000007aa                EXTI_ENEnable
+                0x000007b6       0x40 MCAL/EXTI/EXTI.o
+                0x000007b6                EXTI_ENEnable
  .text.EXTI_ENTriggerEdge
-                0x000007ea       0x96 MCAL/EXTI/EXTI.o
-                0x000007ea                EXTI_ENTriggerEdge
+                0x000007f6       0x96 MCAL/EXTI/EXTI.o
+                0x000007f6                EXTI_ENTriggerEdge
  .text.EXTI_SetCallBack
-                0x00000880       0x34 MCAL/EXTI/EXTI.o
-                0x00000880                EXTI_SetCallBack
+                0x0000088c       0x34 MCAL/EXTI/EXTI.o
+                0x0000088c                EXTI_SetCallBack
  .text.__vector_1
-                0x000008b4       0x52 MCAL/EXTI/EXTI.o
-                0x000008b4                __vector_1
+                0x000008c0       0x52 MCAL/EXTI/EXTI.o
+                0x000008c0                __vector_1
  .text.__vector_2
-                0x00000906       0x52 MCAL/EXTI/EXTI.o
-                0x00000906                __vector_2
+                0x00000912       0x52 MCAL/EXTI/EXTI.o
+                0x00000912                __vector_2
  .text.__vector_3
-                0x00000958       0x52 MCAL/EXTI/EXTI.o
-                0x00000958                __vector_3
+                0x00000964       0x52 MCAL/EXTI/EXTI.o
+                0x00000964                __vector_3
  .text.Timer0_Init
-                0x000009aa       0xb4 MCAL/TIMER/Timer.o
-                0x000009aa                Timer0_Init
+                0x000009b6       0xb4 MCAL/TIMER/Timer.o
+                0x000009b6                Timer0_Init
  .text.TIMER0_voidPhaseCorrect
-                0x00000a5e       0x2e MCAL/TIMER/Timer.o
-                0x00000a5e                TIMER0_voidPhaseCorrect
+                0x00000a6a       0x2e MCAL/TIMER/Timer.o
+                0x00000a6a                TIMER0_voidPhaseCorrect
  .text.__vector_11
-                0x00000a8c       0xb6 MCAL/TIMER/Timer.o
-                0x00000a8c                __vector_11
+                0x00000a98       0xb6 MCAL/TIMER/Timer.o
+                0x00000a98                __vector_11
  .text.__vector_9
-                0x00000b42       0x52 MCAL/TIMER/Timer.o
-                0x00000b42                __vector_9
+                0x00000b4e       0x52 MCAL/TIMER/Timer.o
+                0x00000b4e                __vector_9
  .text.__vector_7
-                0x00000b94       0x52 MCAL/TIMER/Timer.o
-                0x00000b94                __vector_7
+                0x00000ba0       0x52 MCAL/TIMER/Timer.o
+                0x00000ba0                __vector_7
  .text.__vector_8
-                0x00000be6       0x52 MCAL/TIMER/Timer.o
-                0x00000be6                __vector_8
+                0x00000bf2       0x52 MCAL/TIMER/Timer.o
+                0x00000bf2                __vector_8
  .text.__vector_6
-                0x00000c38       0x52 MCAL/TIMER/Timer.o
-                0x00000c38                __vector_6
+                0x00000c44       0x52 MCAL/TIMER/Timer.o
+                0x00000c44                __vector_6
  .text.libgcc.div
-                0x00000c8a       0x28 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_divmodhi4.o)
-                0x00000c8a                _div
-                0x00000c8a                __divmodhi4
+                0x00000c96       0x28 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_divmodhi4.o)
+                0x00000c96                _div
+                0x00000c96                __divmodhi4
  .text.libgcc.div
-                0x00000cb2       0x28 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_udivmodhi4.o)
-                0x00000cb2                __udivmodhi4
-                0x00000cda                . = ALIGN (0x2)
+                0x00000cbe       0x28 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_udivmodhi4.o)
+                0x00000cbe                __udivmodhi4
+                0x00000ce6                . = ALIGN (0x2)
  *(.fini9)
- .fini9         0x00000cda        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_exit.o)
-                0x00000cda                _exit
-                0x00000cda                exit
+ .fini9         0x00000ce6        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_exit.o)
+                0x00000ce6                _exit
+                0x00000ce6                exit
  *(.fini9)
  *(.fini8)
  *(.fini8)
@@ -580,16 +590,16 @@ END GROUP
  *(.fini1)
  *(.fini1)
  *(.fini0)
- .fini0         0x00000cda        0x4 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_exit.o)
+ .fini0         0x00000ce6        0x4 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_exit.o)
  *(.fini0)
-                0x00000cde                _etext = .
+                0x00000cea                _etext = .
 
-.data           0x00800060        0x8 load address 0x00000cde
+.data           0x00800060        0x8 load address 0x00000cea
                 0x00800060                PROVIDE (__data_start, .)
  *(.data)
  *(.data*)
  .data.gMotorButton
-                0x00800060        0x1 main.o
+                0x00800060        0x1 APP/CarControl.o
  .data.gOVFNUM  0x00800061        0x4 MCAL/TIMER/Timer.o
  .data.gPrescal
                 0x00800065        0x2 MCAL/TIMER/Timer.o
@@ -607,11 +617,11 @@ END GROUP
  *(.bss)
  *(.bss*)
  .bss.gMotorState
-                0x00800068        0x1 main.o
+                0x00800068        0x1 APP/CarControl.o
  .bss.gPWMButton
-                0x00800069        0x1 main.o
+                0x00800069        0x1 APP/CarControl.o
  .bss.gPWMState
-                0x0080006a        0x1 main.o
+                0x0080006a        0x1 APP/CarControl.o
  .bss.EXTI_INT2_FPtr
                 0x0080006b        0x2 MCAL/EXTI/EXTI.o
  .bss.EXTI_INT1_FPtr
@@ -632,8 +642,8 @@ END GROUP
                 0x0080007d        0x2 MCAL/TIMER/Timer.o
  *(COMMON)
                 0x0080007f                PROVIDE (__bss_end, .)
-                0x00000cde                __data_load_start = LOADADDR (.data)
-                0x00000ce6                __data_load_end = (__data_load_start + SIZEOF (.data))
+                0x00000cea                __data_load_start = LOADADDR (.data)
+                0x00000cf2                __data_load_end = (__data_load_start + SIZEOF (.data))
 
 .noinit         0x0080007f        0x0
                 [!provide]                PROVIDE (__noinit_start, .)
@@ -681,10 +691,11 @@ END GROUP
 
 .comment        0x00000000       0x30
  *(.comment)
- .comment       0x00000000       0x30 HAL/MOTOR/MOTOR_Program.o
+ .comment       0x00000000       0x30 APP/CarControl.o
                                  0x31 (size before relaxing)
+ .comment       0x00000030       0x31 APP/main.o
+ .comment       0x00000030       0x31 HAL/MOTOR/MOTOR_Program.o
  .comment       0x00000030       0x31 HAL/SWITCH/SWITCH_prog.o
- .comment       0x00000030       0x31 main.o
  .comment       0x00000030       0x31 MCAL/DIO/DIO.o
  .comment       0x00000030       0x31 MCAL/EXTI/EXTI.o
  .comment       0x00000030       0x31 MCAL/TIMER/Timer.o
@@ -709,77 +720,85 @@ END GROUP
 .debug_sfnames
  *(.debug_sfnames)
 
-.debug_aranges  0x00000000      0x228
+.debug_aranges  0x00000000      0x250
  *(.debug_aranges)
  .debug_aranges
-                0x00000000       0x40 HAL/MOTOR/MOTOR_Program.o
+                0x00000000       0x38 APP/CarControl.o
  .debug_aranges
-                0x00000040       0x20 HAL/SWITCH/SWITCH_prog.o
+                0x00000038       0x20 APP/main.o
  .debug_aranges
-                0x00000060       0x30 main.o
+                0x00000058       0x40 HAL/MOTOR/MOTOR_Program.o
  .debug_aranges
-                0x00000090       0x50 MCAL/DIO/DIO.o
+                0x00000098       0x20 HAL/SWITCH/SWITCH_prog.o
  .debug_aranges
-                0x000000e0       0x50 MCAL/EXTI/EXTI.o
+                0x000000b8       0x50 MCAL/DIO/DIO.o
  .debug_aranges
-                0x00000130       0xf8 MCAL/TIMER/Timer.o
+                0x00000108       0x50 MCAL/EXTI/EXTI.o
+ .debug_aranges
+                0x00000158       0xf8 MCAL/TIMER/Timer.o
 
 .debug_pubnames
  *(.debug_pubnames)
 
-.debug_info     0x00000000     0x2025
+.debug_info     0x00000000     0x20db
  *(.debug_info .gnu.linkonce.wi.*)
  .debug_info    0x00000000      0x4e6 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.3.300/gcc/dev/atmega32/avr5/crtatmega32.o
- .debug_info    0x000004e6      0x655 HAL/MOTOR/MOTOR_Program.o
- .debug_info    0x00000b3b      0x1a0 HAL/SWITCH/SWITCH_prog.o
- .debug_info    0x00000cdb      0x618 main.o
- .debug_info    0x000012f3      0x39b MCAL/DIO/DIO.o
- .debug_info    0x0000168e      0x27d MCAL/EXTI/EXTI.o
- .debug_info    0x0000190b      0x71a MCAL/TIMER/Timer.o
+ .debug_info    0x000004e6      0x619 APP/CarControl.o
+ .debug_info    0x00000aff       0xb5 APP/main.o
+ .debug_info    0x00000bb4      0x655 HAL/MOTOR/MOTOR_Program.o
+ .debug_info    0x00001209      0x1a0 HAL/SWITCH/SWITCH_prog.o
+ .debug_info    0x000013a9      0x39b MCAL/DIO/DIO.o
+ .debug_info    0x00001744      0x27d MCAL/EXTI/EXTI.o
+ .debug_info    0x000019c1      0x71a MCAL/TIMER/Timer.o
 
-.debug_abbrev   0x00000000      0xa37
+.debug_abbrev   0x00000000      0xa8f
  *(.debug_abbrev)
  .debug_abbrev  0x00000000      0x4a3 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.3.300/gcc/dev/atmega32/avr5/crtatmega32.o
- .debug_abbrev  0x000004a3       0xc8 HAL/MOTOR/MOTOR_Program.o
- .debug_abbrev  0x0000056b       0xce HAL/SWITCH/SWITCH_prog.o
- .debug_abbrev  0x00000639       0xd4 main.o
- .debug_abbrev  0x0000070d       0xdf MCAL/DIO/DIO.o
- .debug_abbrev  0x000007ec       0xc6 MCAL/EXTI/EXTI.o
- .debug_abbrev  0x000008b2      0x185 MCAL/TIMER/Timer.o
+ .debug_abbrev  0x000004a3       0xc4 APP/CarControl.o
+ .debug_abbrev  0x00000567       0x68 APP/main.o
+ .debug_abbrev  0x000005cf       0xc8 HAL/MOTOR/MOTOR_Program.o
+ .debug_abbrev  0x00000697       0xce HAL/SWITCH/SWITCH_prog.o
+ .debug_abbrev  0x00000765       0xdf MCAL/DIO/DIO.o
+ .debug_abbrev  0x00000844       0xc6 MCAL/EXTI/EXTI.o
+ .debug_abbrev  0x0000090a      0x185 MCAL/TIMER/Timer.o
 
-.debug_line     0x00000000     0x138f
+.debug_line     0x00000000     0x13fa
  *(.debug_line .debug_line.* .debug_line_end)
  .debug_line    0x00000000      0x115 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.3.300/gcc/dev/atmega32/avr5/crtatmega32.o
- .debug_line    0x00000115      0x1fb HAL/MOTOR/MOTOR_Program.o
- .debug_line    0x00000310       0xcf HAL/SWITCH/SWITCH_prog.o
- .debug_line    0x000003df      0x2ca main.o
- .debug_line    0x000006a9      0x40b MCAL/DIO/DIO.o
- .debug_line    0x00000ab4      0x2c2 MCAL/EXTI/EXTI.o
- .debug_line    0x00000d76      0x619 MCAL/TIMER/Timer.o
+ .debug_line    0x00000115      0x2d6 APP/CarControl.o
+ .debug_line    0x000003eb       0x5f APP/main.o
+ .debug_line    0x0000044a      0x1fb HAL/MOTOR/MOTOR_Program.o
+ .debug_line    0x00000645       0xcf HAL/SWITCH/SWITCH_prog.o
+ .debug_line    0x00000714      0x40b MCAL/DIO/DIO.o
+ .debug_line    0x00000b1f      0x2c2 MCAL/EXTI/EXTI.o
+ .debug_line    0x00000de1      0x619 MCAL/TIMER/Timer.o
 
-.debug_frame    0x00000000      0x614
+.debug_frame    0x00000000      0x648
  *(.debug_frame)
- .debug_frame   0x00000000       0x74 HAL/MOTOR/MOTOR_Program.o
- .debug_frame   0x00000074       0x24 HAL/SWITCH/SWITCH_prog.o
- .debug_frame   0x00000098       0x44 main.o
- .debug_frame   0x000000dc       0x84 MCAL/DIO/DIO.o
- .debug_frame   0x00000160      0x15c MCAL/EXTI/EXTI.o
- .debug_frame   0x000002bc      0x358 MCAL/TIMER/Timer.o
+ .debug_frame   0x00000000       0x54 APP/CarControl.o
+ .debug_frame   0x00000054       0x24 APP/main.o
+ .debug_frame   0x00000078       0x74 HAL/MOTOR/MOTOR_Program.o
+ .debug_frame   0x000000ec       0x24 HAL/SWITCH/SWITCH_prog.o
+ .debug_frame   0x00000110       0x84 MCAL/DIO/DIO.o
+ .debug_frame   0x00000194      0x15c MCAL/EXTI/EXTI.o
+ .debug_frame   0x000002f0      0x358 MCAL/TIMER/Timer.o
 
-.debug_str      0x00000000      0xd8e
+.debug_str      0x00000000      0xdb9
  *(.debug_str)
  .debug_str     0x00000000      0x196 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.3.300/gcc/dev/atmega32/avr5/crtatmega32.o
- .debug_str     0x00000196      0x2e6 HAL/MOTOR/MOTOR_Program.o
+ .debug_str     0x00000196      0x43d APP/CarControl.o
+                                0x487 (size before relaxing)
+ .debug_str     0x000005d3       0x13 APP/main.o
+                                0x18b (size before relaxing)
+ .debug_str     0x000005e6       0x8f HAL/MOTOR/MOTOR_Program.o
                                 0x31f (size before relaxing)
- .debug_str     0x0000047c       0x4b HAL/SWITCH/SWITCH_prog.o
+ .debug_str     0x00000675       0x39 HAL/SWITCH/SWITCH_prog.o
                                 0x20e (size before relaxing)
- .debug_str     0x000004c7      0x1bc main.o
-                                0x46f (size before relaxing)
- .debug_str     0x00000683      0x108 MCAL/DIO/DIO.o
+ .debug_str     0x000006ae      0x108 MCAL/DIO/DIO.o
                                 0x33a (size before relaxing)
- .debug_str     0x0000078b       0xc7 MCAL/EXTI/EXTI.o
+ .debug_str     0x000007b6       0xc7 MCAL/EXTI/EXTI.o
                                 0x2c1 (size before relaxing)
- .debug_str     0x00000852      0x53c MCAL/TIMER/Timer.o
+ .debug_str     0x0000087d      0x53c MCAL/TIMER/Timer.o
                                 0x807 (size before relaxing)
 
 .debug_loc      0x00000000     0x14cd
@@ -808,14 +827,15 @@ END GROUP
 .debug_pubtypes
  *(.debug_pubtypes)
 
-.debug_ranges   0x00000000      0x1c8
+.debug_ranges   0x00000000      0x1e0
  *(.debug_ranges)
- .debug_ranges  0x00000000       0x30 HAL/MOTOR/MOTOR_Program.o
- .debug_ranges  0x00000030       0x10 HAL/SWITCH/SWITCH_prog.o
- .debug_ranges  0x00000040       0x20 main.o
- .debug_ranges  0x00000060       0x40 MCAL/DIO/DIO.o
- .debug_ranges  0x000000a0       0x40 MCAL/EXTI/EXTI.o
- .debug_ranges  0x000000e0       0xe8 MCAL/TIMER/Timer.o
+ .debug_ranges  0x00000000       0x28 APP/CarControl.o
+ .debug_ranges  0x00000028       0x10 APP/main.o
+ .debug_ranges  0x00000038       0x30 HAL/MOTOR/MOTOR_Program.o
+ .debug_ranges  0x00000068       0x10 HAL/SWITCH/SWITCH_prog.o
+ .debug_ranges  0x00000078       0x40 MCAL/DIO/DIO.o
+ .debug_ranges  0x000000b8       0x40 MCAL/EXTI/EXTI.o
+ .debug_ranges  0x000000f8       0xe8 MCAL/TIMER/Timer.o
 
 .debug_macro
  *(.debug_macro)

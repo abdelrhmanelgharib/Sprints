@@ -1,6 +1,6 @@
 /**
  * @file Timer.c
- * @author Team_3
+ * @author Vicious
  * @brief  TIMER
  * @version 0.1
  * @date 2021-07-8
