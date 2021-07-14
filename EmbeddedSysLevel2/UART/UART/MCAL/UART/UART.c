@@ -9,6 +9,10 @@
 
 #include "UART_int.h"
 
+static uint8_t *gPsend_str = NULLPTR;
+static uint8_t *gPrece_str = NULLPTR, gFlag = 1;
+
+
 /**
  * @brief Initialized UART 
  * 
@@ -16,9 +20,8 @@
  */
 EN_ERRORSTATE_t UART_ENInit(void)
 {
-    EN_ERRORSTATE_t state;
-    state = E_OK;
-
+    EN_ERRORSTATE_t Enstate;
+	Enstate = E_OK;
     /* Clear  URSEL to update UBRRH*/
     CLRBIT(UCSRC, URSEL);
     /* Boud Rate */
@@ -90,6 +93,8 @@ EN_ERRORSTATE_t UART_ENInit(void)
     SETBIT(UCSRC, UCSZ0);
     SETBIT(UCSRC, UCSZ1);
     SETBIT(UCSRB, UCSZ2);
+    #else
+    Enstate = E_ERROR;
 #endif
 
     /**
@@ -101,8 +106,12 @@ EN_ERRORSTATE_t UART_ENInit(void)
      * @brief Transmitter Enable
      * 
      */
-    SETBIT(UCSRB, RXEN);
+    SETBIT(UCSRB, TXEN);
+
+    return Enstate;
 } /* UART_ENInit */
+
+
 
 /**
  * @brief Send One Character
@@ -113,8 +122,7 @@ EN_ERRORSTATE_t UART_ENInit(void)
 EN_ERRORSTATE_t UART_ENSendData(uint8_t Data)
 {
     /* Wait to Data Register Empty */
-    while (!GETBIT(UCSRA, UDRE))
-        ;
+    while (!GETBIT(UCSRA, UDRE));
 
     UDR = Data;
 }
@@ -128,6 +136,7 @@ EN_ERRORSTATE_t UART_ENSendData(uint8_t Data)
 EN_ERRORSTATE_t UART_ENSendNoBlock(uint8_t Data)
 {
     UDR = Data;
+    return E_OK;
 }
 
 /**
@@ -137,7 +146,7 @@ EN_ERRORSTATE_t UART_ENSendNoBlock(uint8_t Data)
  */
 uint8_t UART_u8ReceiveData(void)
 {
-    while(!GETBIT(UCSRA, RXC));
+    while (!GETBIT(UCSRA, RXC));
     return UDR;
 }
 
@@ -149,15 +158,94 @@ uint8_t UART_u8ReceiveData(void)
  */
 uint8_t UART_u8ReceiveNoBlock(uint8_t *Data)
 {
-    uint8_t Status = 0;
-    if(GETBIT(UCSRA, RXC))
+    return UDR;
+}
+
+/**
+ * @brief Enable Transmit Interrupt
+ * 
+ */
+void UART_voidTXInterruptEnable(void)
+{
+    SETBIT(UCSRB, TXCIE);
+    SETBIT(SREG, I_BIT);
+}
+
+/**
+ * @brief Enable Receive Interrupt
+ * 
+ */
+void UART_voidRXInterruptEnable(void)
+{
+    SETBIT(UCSRB, RXCIE);
+    SETBIT(SREG, I_BIT);
+}
+
+/**
+ * @brief Asynchronous Function Send 
+ * 
+ * @param str Data to send
+ */
+void UART_voidSendString_Ashync(uint8_t *str)
+{
+    /* Flag using For Protection if call function before string is end */
+    if (gFlag == 1)
     {
-        *Data = UDR;
-        Status = 1;
+        /* Send First Letter we bsend b2y fy ISR*/
+        UART_ENSendNoBlock(str[0]);
+
+        /* Flag will Fired when data is Sent Then go to isr */
+        UART_voidTXInterruptEnable();
+        gPsend_str = str;
+        gFlag = 0;
     }
+}
+
+/**
+ * @brief Asynchronous Function Receive 
+ * 
+ * @param Str Data to Receive
+ */
+void UART_voidReceiveString_Ashync(uint8_t *Str)
+{
+    UART_voidRXInterruptEnable();
+    gPrece_str = Str;
+}
+
+
+/**
+ * @brief Transmit interrupt 
+ * 
+ */
+void __vector_15(void)
+{
+    /* Start with Second Letter */
+    /* First Letter is sent in Function Ashync */
+    static uint8_t i = 1;
+
+    if (gPsend_str[i] != '\0')
+    {
+        UART_ENSendNoBlock(gPsend_str[i]);
+        i++;
+    }
+    /* String is End So start with Second Letter */
     else
     {
-        /* do nothing */
+        i = 1;
+        gFlag = 1;
     }
-    return Status;
+}
+
+
+/**
+ * @brief Receive interrupt
+ * 
+ */
+void __vector_13(void)
+{
+    static uint8_t i = 0;
+    gPrece_str[i] = UART_u8ReceiveNoBlock(gPrece_str[i]);
+    i++;
+    if (i > 98)
+        i = 0;
 }
