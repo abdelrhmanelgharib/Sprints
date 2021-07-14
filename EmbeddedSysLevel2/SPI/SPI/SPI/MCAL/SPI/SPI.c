@@ -96,8 +96,7 @@ EN_ERRORSTATE_t SPI_ENSlaveInit(void)
 uint8_t SPI_u8SendReceive(uint8_t Data)
 {
     SPDR = Data;
-    while (!GETBIT(SPSR, SPIF))
-        ;
+    while (!GETBIT(SPSR, SPIF));
 
     /* Flag will clear when read it */
     return SPDR;
@@ -108,7 +107,7 @@ uint8_t SPI_u8SendReceive(uint8_t Data)
  * 
  * @param Data Data send
  */
-void SPI_ENSendNoBlock(uint8_t Data)
+void SPI_voidSendNoBlock(uint8_t Data)
 {
     SPDR = Data;
 }
@@ -143,8 +142,11 @@ uint8_t SPI_u8ReceivePerodic(uint8_t *Pdata)
 }
 
 
-
-
+/**
+ * @brief Send Data
+ * 
+ * @param data 
+ */
 void SPI_voidSendData(uint8_t data)
 {
     SPDR = data;  
@@ -152,7 +154,13 @@ void SPI_voidSendData(uint8_t data)
      
 }
 
-uint8_t SPI_u8Receive(void)
+
+/**
+ * @brief Receive Data
+ * 
+ * @return uint8_t 
+ */
+uint8_t SPI_u8ReceiveData(void)
 {
     SPDR = GARBAGE;
     while (!(GETBIT(SPSR, SPIF)));  

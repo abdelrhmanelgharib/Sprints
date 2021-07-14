@@ -16,10 +16,21 @@
 
 #include "../MCAL/SPI/SPI_int.h"
 
-
+/**
+ * @brief SendString
+ * 
+ * @param PStr 
+ */
 void SER_SPIvoidSendString(uint8_t *PStr);
 
+
+/**
+ * @brief Receive String
+ * 
+ * @param Str 
+ */
 void SER_SPIvoidReceiveString(uint8_t *Str);
-uint8_t *SPI_u8SendReceiveString(uint8_t *Data);
+
+
 
 #endif  /* SER_SPI_INT_H_ */

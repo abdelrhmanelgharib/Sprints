@@ -119,7 +119,7 @@ void SPI_ENSendNoBlock(uint8_t Data)
  */
 uint8_t SPI_u8ReceiveNoBlock(void)
 {
-    
+    return SPDR;
 }
 
 /**
@@ -128,21 +128,41 @@ uint8_t SPI_u8ReceiveNoBlock(void)
  * @param Pdata Store Received data 
  * @return uint8_t is data Received 
  */
-uint8_t SPI_u8ReceivePerodic(uint8_t *Pdata);
-
-
-
-
-
-void SPI_voidSendData(uint8_t data)
+uint8_t SPI_u8ReceivePerodic(uint8_t *Pdata)
 {
-	SPDR = data;
-	while ((GETBIT(SPSR, SPIF)));
+    if (GETBIT(SPSR, SPIF))
+    {
+        *Pdata = SPDR;
+        return 1;
+    }
+    else
+    {
+        return 0;
+    }
 }
 
-uint8_t SPI_u8Receive(void)
+
+/**
+ * @brief Send Data
+ * 
+ * @param data 
+ */
+void SPI_voidSendData(uint8_t data)
 {
-	SPDR = GARBAGE;
-	while (!(GETBIT(SPSR, SPIF)));
-	return SPDR;
+    SPDR = data;  
+    while (!(GETBIT(SPSR, SPIF)));
+     
+}
+
+
+/**
+ * @brief Receive Data
+ * 
+ * @return uint8_t 
+ */
+uint8_t SPI_u8ReceiveData(void)
+{
+    SPDR = GARBAGE;
+    while (!(GETBIT(SPSR, SPIF)));  
+    return SPDR;
 }

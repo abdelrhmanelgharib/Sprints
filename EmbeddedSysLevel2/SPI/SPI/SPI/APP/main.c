@@ -19,7 +19,9 @@ int main(void)
     DIO_voidSetPinDirection(PORT_B, PIN7, OUTPUT);
 	DIO_voidSetPinValue(PORT_B, PIN7, LOW);
     SPI_ENMasterInit();
+	
 	SPI_u8SendReceive('a');
+		
 	
 	
     while (1)

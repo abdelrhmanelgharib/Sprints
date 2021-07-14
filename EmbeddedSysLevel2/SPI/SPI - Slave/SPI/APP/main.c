@@ -22,9 +22,11 @@ int main(void)
 	
     SPI_ENSlaveInit();
 	
-    uint8_t x = SPI_u8Receive();
+    uint8_t x = SPI_u8ReceiveData();
+	
 	DIO_voidSetPortValue(PORT_A, x);
-		
+
+
     while (1)
     {
 		

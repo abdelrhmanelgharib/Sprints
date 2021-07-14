@@ -20,24 +20,12 @@ void SER_SPIvoidSendString(uint8_t *PStr)
 void SER_SPIvoidReceiveString(uint8_t *Str)
 {
     uint8_t i = 0;
-    Str[i] = SPI_u8Receive();
+    Str[i] = SPI_u8ReceiveData();
     while (Str[i] != '#')
     {
         i++;
-        Str[i] = SPI_u8Receive();
+        Str[i] = SPI_u8ReceiveData();
     }
     /* replace to NULL */
     Str[i] = '\0';
-}
-
-uint8_t *SPI_u8SendReceiveString(uint8_t *Data)
-{
-    static uint8_t arr[100];
-    uint8_t i = 0;
-    while (Data[i])
-    {
-        arr[i] = SPI_u8SendReceive(Data[i]);
-        i++;
-    }
-    return arr;
 }

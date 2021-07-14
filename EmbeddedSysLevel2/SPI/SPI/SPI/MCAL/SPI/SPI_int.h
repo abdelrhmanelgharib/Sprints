@@ -78,9 +78,20 @@ uint8_t SPI_u8ReceiveNoBlock(void);
  */
 uint8_t SPI_u8ReceivePerodic(uint8_t *Pdata);
 
-
+/**
+ * @brief Send Data
+ * 
+ * @param data 
+ */
 void SPI_voidSendData(uint8_t data);
-uint8_t SPI_u8Receive(void);
+
+
+/**
+ * @brief Receive Data
+ * 
+ * @return uint8_t 
+ */
+uint8_t SPI_u8ReceiveData(void);
 
 
 
