@@ -31,7 +31,15 @@
 #define _8BIT       4
 #define _9BIT       5
 
+/* Receive Complete */
+void __vector_13(void) __attribute__((signal));
 
+
+/* Data Register Empty */
+void __vector_14(void) __attribute__((signal));
+
+/* Transmit Complete */
+void __vector_15(void) __attribute__((signal));
 
 
 #endif  /* UART_PRIVATE_H_ */

@@ -14,7 +14,7 @@
 /*
     DOUBLE - NORMAL
 */
-#define UART_SPEED  DOUBLE
+#define UART_SPEED  NORMAL
 
 
 /*
@@ -32,7 +32,7 @@
    8MHz, 9600 BaudRate 
 */
 #define HIGHUBRR         0
-#define LOWUBRR          103
+#define LOWUBRR          51
 
 
 

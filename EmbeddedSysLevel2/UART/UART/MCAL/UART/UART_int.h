@@ -37,7 +37,7 @@ EN_ERRORSTATE_t UART_ENInit(void);
 /**
  * @brief Send One Character
  * 
- * @param Data char want to send
+ * @param Data char to send
  * @return EN_ERRORSTATE_t E_OK | E_ERROR
  */
 EN_ERRORSTATE_t UART_ENSendData(uint8_t Data);
@@ -46,7 +46,7 @@ EN_ERRORSTATE_t UART_ENSendData(uint8_t Data);
 /**
  * @brief Send Without Polling On Data Register Flag 
  * 
- * @param Data char want to send
+ * @param Data char to send
  * @return EN_ERRORSTATE_t E_OK | E_ERROR
  */
 EN_ERRORSTATE_t UART_ENSendNoBlock(uint8_t Data);
@@ -70,4 +70,40 @@ uint8_t UART_u8ReceiveNoBlock(uint8_t *Data);
 
 
 
+/**
+ * @brief Enable Transmit Interrupt
+ * 
+ */
+void UART_voidTXInterruptEnable(void);
+
+
+
+/**
+ * @brief Enable Receive Interrupt
+ * 
+ */
+void UART_voidRXInterruptEnable(void);
+
+
+/**
+ * @brief Asynchronous Function Send 
+ * 
+ * @param str Data to send
+ */
+void UART_voidSendString_Ashync(uint8_t *str);
+
+
+/**
+ * @brief Asynchronous Function Receive 
+ * 
+ * @param Str Data to Receive
+ */
+void UART_voidReceiveString_Ashync(uint8_t *Str);
+
+
+
+
+
+
 #endif  /* UART_INT_H_ */
+
