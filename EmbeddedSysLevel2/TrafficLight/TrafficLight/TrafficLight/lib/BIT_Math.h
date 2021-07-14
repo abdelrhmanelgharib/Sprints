@@ -1,6 +1,10 @@
-/*
-*  Author: Vicious
- *  Created on: 11/7/2021
+/**
+ * @file BIT_Math.h
+ * @author Elgharib
+ * @brief 
+ * @version 0.1
+ * @date 2021-07-11
+ * 
  */
 
 
