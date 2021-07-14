@@ -27,6 +27,12 @@
  */
 #define DATAFRAM    _8BIT
 
+
+/*
+    1_BIT - _2BIT
+ */
+#define STOPBIT        _1BIT
+
 /* 
    UBRR Setting 
    8MHz, 9600 BaudRate 

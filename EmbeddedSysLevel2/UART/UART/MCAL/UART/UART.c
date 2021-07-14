@@ -37,6 +37,18 @@ EN_ERRORSTATE_t UART_ENInit(void)
     CLRBIT(UCSRA, U2X);
 #endif
 
+/* Select STOP Bit */
+#if STOPBIT == _1BIT
+    /* Set URSEL to update UCSRC*/
+    SETBIT(UCSRC, URSEL);
+    CLRBIT(UCSRC, USBS);
+
+#elif STOPBIT == _2BIT
+    /* Set URSEL to update UCSRC*/
+    SETBIT(UCSRC, URSEL);
+    SETBIT(UCSRC, USBS);
+#endif
+
 /* Disable Parity */
 #if UART_PARITY == DISABLED
 
@@ -93,7 +105,7 @@ EN_ERRORSTATE_t UART_ENInit(void)
     SETBIT(UCSRC, UCSZ0);
     SETBIT(UCSRC, UCSZ1);
     SETBIT(UCSRB, UCSZ2);
-    #else
+#else
     Enstate = E_ERROR;
 #endif
 
