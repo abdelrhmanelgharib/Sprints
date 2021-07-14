@@ -1,6 +1,6 @@
 /**
  * @file DIO_Interface.h
- * @author Vicious
+ * @author Elghairb
  * @brief   This a DIO Interface File
  * @version 0.1
  * @date 2021-07-07

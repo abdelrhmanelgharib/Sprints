@@ -1,6 +1,6 @@
 /**
  * @file DIO.c
- * @author Vicious
+ * @author Elghairb
  * @brief  This is a DIO File for Atmega32
  * @version 0.1
  * @date 2021-07-07
