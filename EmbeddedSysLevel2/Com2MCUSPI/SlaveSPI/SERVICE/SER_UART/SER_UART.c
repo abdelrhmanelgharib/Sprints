@@ -19,15 +19,15 @@
 void SER_UARTvoidSendString(uint8_t *Str)
 {
     uint8_t i = 0;
-    for (i = 0; Str[i]; i++)
+    while (Str[i])
     {
         UART_ENSendData(Str[i]);
+		i++;
     }
-    UART_ENSendData('\r');
 }
 
 /**
- * @brief Recevie String
+ * @brief Receive String
  * 
  * @param Str Store String in Str
  */
@@ -41,7 +41,8 @@ void SER_UARTvoidReceiveString(uint8_t *Str)
         Str[i] = UART_u8ReceiveData();
     }
     /* replace to NULL */
-    Str[i] = 0;
+	Str[i] = '\r';
+    Str[i+1] = '\0';
 }
 
 /**

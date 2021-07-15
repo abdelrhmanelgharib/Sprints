@@ -40,13 +40,12 @@ void SER_SPIvoidInitPinSlave(void)
 void SER_SPIvoidSendString(uint8_t *PStr)
 {
     uint8_t i = 0;
-    SPI_voidSendData(PStr[i]);
-    while (PStr[i])
+    while (PStr[i]!= '\0')
     {
+		SPI_voidSendData(PStr[i]);
         i++;
-        SPI_voidSendData(PStr[i]);
     }
-    PStr[i] = 0;
+    PStr[i] = '\0';
 }
 
 /**
@@ -58,11 +57,12 @@ void SER_SPIvoidReceiveString(uint8_t *Str)
 {
     uint8_t i = 0;
     Str[i] = SPI_u8ReceiveData();
-    while (Str[i])
+    while (Str[i] != '\r')
     {
         i++;
         Str[i] = SPI_u8ReceiveData();
     }
     /* replace to NULL */
-    Str[i] = 0;
+    Str[i] = '\r';
+	Str[i+1] = '\0';
 }
