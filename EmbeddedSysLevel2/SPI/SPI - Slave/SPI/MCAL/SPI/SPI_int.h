@@ -20,27 +20,26 @@
 
 typedef enum
 {
-    E_ERROR ,
-    E_OK
-}EN_ERRORSTATE_t;
+    E_SPIERROR ,
+    E_OKSPI
+}EN_SPIESTATE_t;
 
-#define GARBAGE 0
 
 
 /**
  * @brief initialized  Master
  * 
- * @return EN_ERRORSTATE_t E_ERROR | E_OK
+ * @return EN_SPIESTATE_t E_SPIERROR | E_OKSPI
  */
-EN_ERRORSTATE_t SPI_ENMasterInit(void);
+EN_SPIESTATE_t SPI_ENMasterInit(void);
 
 
 /**
  * @brief initialized Slave
  * 
- * @return EN_ERRORSTATE_t E_ERROR | E_OK
+ * @return EN_SPIESTATE_t E_SPIERROR | E_OKSPI
  */
-EN_ERRORSTATE_t SPI_ENSlaveInit(void);
+EN_SPIESTATE_t SPI_ENSlaveInit(void);
 
 
 
@@ -57,7 +56,7 @@ uint8_t SPI_u8SendReceive(uint8_t Data);
  * 
  * @param Data Data send
  */
-void SPI_voidSendNoBlock(uint8_t Data);
+void SPI_ENSendNoBlock(uint8_t Data);
 
 
 

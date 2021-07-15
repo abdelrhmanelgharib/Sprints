@@ -24,7 +24,6 @@ typedef enum
     E_OK
 }EN_ERRORSTATE_t;
 
-#define GARBAGE 0
 
 
 /**

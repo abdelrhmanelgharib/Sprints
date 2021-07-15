@@ -1,9 +1,11 @@
-/*
- * SPI_int.h
- *
- * Created: 7/14/2021 2:54:43 PM
- *  Author: 2bdoa
- */ 
+/**
+ * @file SER_SPI_int.h
+ * @author Elgharib
+ * @brief 
+ * @version 0.1
+ * @date 2021-07-15
+ * 
+ */
 
 
 
@@ -13,8 +15,25 @@
 #include "../lib/DataTypes.h"
 #include "../lib/BIT_Math.h"
 #include "../lib/Memmap.h"
-
+#include "DIO_Interface.h"
 #include "../MCAL/SPI/SPI_int.h"
+
+
+/**
+ * @brief Initialize Pin for Master
+ * 
+ */
+void SER_SPIvoidInitPinMaster(void);
+
+
+
+/**
+ * @brief Initialize Pin for Slave
+ * 
+ */
+void SER_SPIvoidInitPinSlave(void);
+
+
 
 /**
  * @brief SendString
@@ -22,6 +41,7 @@
  * @param PStr 
  */
 void SER_SPIvoidSendString(uint8_t *PStr);
+
 
 
 /**
