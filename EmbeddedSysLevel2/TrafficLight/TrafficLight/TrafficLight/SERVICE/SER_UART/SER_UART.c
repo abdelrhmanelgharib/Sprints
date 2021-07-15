@@ -23,7 +23,7 @@ void SER_UARTvoidSendString(uint8_t *Str)
     {
         UART_ENSendData(Str[i]);
     }
-    // UART_ENSendData('#');
+     UART_ENSendData('\r');
 }
 
 /**
@@ -35,7 +35,7 @@ void SER_UARTvoidReceiveString(uint8_t *Str)
 {
     uint8_t i = 0;
     Str[i] = UART_u8ReceiveData();
-    while (Str[i] != '#')
+    while (Str[i] != '\r')
     {
         i++;
         Str[i] = UART_u8ReceiveData();

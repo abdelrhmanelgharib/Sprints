@@ -42,14 +42,17 @@ void TrafficLight_voidStart(void)
     if (strcmp(Command, PStart) == 0)
     {
         Flag = START;
+		SER_UARTvoidSendString("Green LED is on");
     }
     else if (strcmp(Command, Pstop) == 0)
     {
         Flag = STOP;
+		SER_UARTvoidSendString("Red LED is on");
     }
     else if (strcmp(Command, Pwait) == 0)
     {
         Flag = WAIT;
+		SER_UARTvoidSendString("Yellow LED is on");
     }
     else
     {

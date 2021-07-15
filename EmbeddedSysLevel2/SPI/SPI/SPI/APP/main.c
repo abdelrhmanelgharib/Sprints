@@ -13,11 +13,8 @@
 #include "SER_SPI_int.h"
 int main(void)
 {
-    DIO_voidSetPinDirection(PORT_B, PIN4, OUTPUT);
-    DIO_voidSetPinDirection(PORT_B, PIN5, OUTPUT);
-    DIO_voidSetPinDirection(PORT_B, PIN6, INPUT);
-    DIO_voidSetPinDirection(PORT_B, PIN7, OUTPUT);
-	DIO_voidSetPinValue(PORT_B, PIN7, LOW);
+	SER_SPIvoidInitPinMaster();
+	
     SPI_ENMasterInit();
 	
 	SPI_u8SendReceive('a');

@@ -14,10 +14,8 @@
 
 int main(void)
 {
-    DIO_voidSetPinDirection(PORT_B, PIN4, INPUT);
-    DIO_voidSetPinDirection(PORT_B, PIN5, INPUT);
-    DIO_voidSetPinDirection(PORT_B, PIN6, OUTPUT);
-    DIO_voidSetPinDirection(PORT_B, PIN7, INPUT);
+	
+	SER_SPIvoidInitPinSlave();
 	
 	
     SPI_ENSlaveInit();
