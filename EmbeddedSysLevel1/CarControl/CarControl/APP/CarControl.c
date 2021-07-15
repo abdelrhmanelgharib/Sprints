@@ -96,29 +96,27 @@ void Car_init(void)
 
 void Car_Control(void)
 {
-	if(SWITCH_u8GetState(SWITCH0))
+	if(gPWMState == FORWARD_30)
 	{
-		if(gPWMState == FORWARD_30)
-		{
-			MOTOR_voidGeneratePWM(30);
-			gMotorButton = MOTOR_FORWARD;
-		}
-		else if(gPWMState == FORWARD_60)
-		{
-			MOTOR_voidGeneratePWM(60);
-			gMotorButton = MOTOR_FORWARD;
-		}
-		else if(gPWMState == FORWARD_90)
-		{
-			MOTOR_voidGeneratePWM(90);
-			gMotorButton = MOTOR_FORWARD;
-		}
-		else if(gPWMState == BACKWARD_30)
-		{
-			MOTOR_voidGeneratePWM(30);
-			gMotorButton = MOTOR_BACKWARD;
-		}
+		MOTOR_voidGeneratePWM(30);
+		gMotorButton = MOTOR_FORWARD;
 	}
+	else if(gPWMState == FORWARD_60)
+	{
+		MOTOR_voidGeneratePWM(60);
+		gMotorButton = MOTOR_FORWARD;
+	}
+	else if(gPWMState == FORWARD_90)
+	{
+		MOTOR_voidGeneratePWM(90);
+		gMotorButton = MOTOR_FORWARD;
+	}
+	else if(gPWMState == BACKWARD_30)
+	{
+		MOTOR_voidGeneratePWM(30);
+		gMotorButton = MOTOR_BACKWARD;
+	}
+
 	while(SWITCH_u8GetState(SWITCH1) == PRESSED && gMotorState >= 0)
 	{
 		if(gMotorState == 1)
