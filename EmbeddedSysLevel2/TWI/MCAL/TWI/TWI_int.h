@@ -50,9 +50,13 @@ void TWI_voidInit(void);
  * 
  * @return EN_ErrorTWI_t Error status
  */
-EN_ErrorTWI_t TWI_voidStartBit()
+EN_ErrorTWI_t TWI_voidStartBit(void);
 
-
-
+EN_ErrorTWI_t TWI_voidStopBit(void);
+void TWI_voidSLV_Write(unsigned char SLV_W);
+void TWI_voidSLVAddress(uint8_t Address);
+void TWI_voidSLV_Read(uint8_t SLV_R);
+void TWI_voidSendData(uint8_t Data);
+uint8_t TWI_u8ReceiveData(void);
 
 #endif  /* TWI_INT_H_ */

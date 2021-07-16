@@ -25,7 +25,7 @@
 *********************************************************************/
 #define SLA_R_ACK_RECEIVD                0x40
 #define SLA_R_NOTACK_RECEIVD             0x48
-#define DATA_M_RECEIVE_ACK_SEND          0x48
+#define DATA_M_RECEIVE_ACK_SEND          0x50
 
 
 

@@ -1,2 +1,6 @@
 .vscode
 /.metadata/
+EmbeddedSysLevel2/.metadata
+EmbeddedSysLevel2/TWI/.settings/de.innot.avreclipse.core.prefs
+EmbeddedSysLevel2/TWI/.project
+

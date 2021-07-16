@@ -215,6 +215,14 @@
 #define TWGCE   0
 
 #define TWDR    (*(volatile uint8_t*) 0x23)
+#define TWD7    7
+#define TWD6    6
+#define TWD5    5
+#define TWD4    4
+#define TWD3    3
+#define TWD2    2
+#define TWD1    1
+#define TWD0    0
 
 #define TWCR    (*(volatile uint8_t*) 0x56)
 #define TWINT   7
