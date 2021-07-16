@@ -24,8 +24,6 @@ void TrafficLight_voidInit(void)
     UART_ENInit();
 }
 
-
-
 /**
  * @brief Compare two string
  * 
@@ -34,10 +32,10 @@ void TrafficLight_voidInit(void)
  * @return uint8_t string is equal = 0 or not equal =1 
  */
 uint8_t String_u8Comp(uint8_t *Str1, uint8_t *Str2)
-{ 
-    uint8_t i=0, Flag=0;
+{
+    uint8_t i = 0, Flag = 0;
 
-    while(Str1[i] || Str2[i])
+    while (Str1[i] || Str2[i])
     {
         if (Str1[i] != Str2[i])
         {
@@ -49,17 +47,15 @@ uint8_t String_u8Comp(uint8_t *Str1, uint8_t *Str2)
     return Flag;
 }
 
-
-
 /**
  * @brief update system while sending command "start - wait - stop"
  * 
  */
 void TrafficLight_voidStart(void)
 {
-    uint8_t *PStart = (uint8_t*)"start";
-    uint8_t *Pstop = (uint8_t*)"stop";
-    uint8_t *Pwait = (uint8_t*)"wait";
+    uint8_t *PStart = (uint8_t *)"start";
+    uint8_t *Pstop = (uint8_t *)"stop";
+    uint8_t *Pwait = (uint8_t *)"wait";
 
     uint8_t Command[6];
     uint8_t Flag = 0;
@@ -68,17 +64,14 @@ void TrafficLight_voidStart(void)
     if (String_u8Comp(Command, PStart) == STRING_EQUL)
     {
         Flag = START;
-        SER_UARTvoidSendString((uint8_t*)"Green LED is on");
     }
     else if (String_u8Comp(Command, Pstop) == STRING_EQUL)
     {
         Flag = STOP;
-        SER_UARTvoidSendString((uint8_t*)"Red LED is on");
     }
     else if (String_u8Comp(Command, Pwait) == STRING_EQUL)
     {
         Flag = WAIT;
-        SER_UARTvoidSendString((uint8_t*)"Yellow LED is on");
     }
     else
     {
@@ -91,18 +84,21 @@ void TrafficLight_voidStart(void)
         LED_voidLedOff(LED0);
         LED_voidLedOff(LED1);
         LED_voidLedOn(LED2);
+        SER_UARTvoidSendString((uint8_t *)"Green LED is on");
 
         break;
     case 2:
         LED_voidLedOff(LED1);
         LED_voidLedOff(LED2);
         LED_voidLedOn(LED0);
+        SER_UARTvoidSendString((uint8_t *)"Red LED is on");
 
         break;
     case 3:
         LED_voidLedOff(LED0);
         LED_voidLedOff(LED2);
         LED_voidLedOn(LED1);
+        SER_UARTvoidSendString((uint8_t *)"Yellow LED is on");
 
         break;
     default:
