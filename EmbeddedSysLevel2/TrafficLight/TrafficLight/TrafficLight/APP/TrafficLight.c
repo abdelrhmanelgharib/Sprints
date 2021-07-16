@@ -13,7 +13,6 @@
 #include "SER_UART_int.h"
 #include "LED_int.h"
 #include "TrafficLight_int.h"
-#include <string.h>
 
 /**
  * @brief initialized LED, UART And DIo
@@ -24,6 +23,28 @@ void TrafficLight_voidInit(void)
     LED_voidInitialize();
     UART_ENInit();
 }
+/**
+ * @brief Compare two string
+ * 
+ * @param Str1 first string
+ * @param Str2 second string
+ * @return uint8_t string is equal = 0 or not equal =1 
+ */
+uint8_t String_u8Comp(uint8_t *Str1, uint8_t *Str2)
+{ 
+    uint8_t i=0, Flag=0;
+
+    while(Str1[i] || Str2[i])
+    {
+        if (Str1[i] != Str2[i])
+        {
+            Flag = 1;
+            break;
+        }
+        i++;
+    }
+    return Flag;
+}
 
 /**
  * @brief update system while sending command "start - wait - stop"
@@ -31,28 +52,28 @@ void TrafficLight_voidInit(void)
  */
 void TrafficLight_voidStart(void)
 {
-    uint8_t *PStart = "start";
-    uint8_t *Pstop = "stop";
-    uint8_t *Pwait = "wait";
+    uint8_t *PStart = (uint8_t*)"start";
+    uint8_t *Pstop = (uint8_t*)"stop";
+    uint8_t *Pwait = (uint8_t*)"wait";
 
     uint8_t Command[6];
     uint8_t Flag = 0;
 
     SER_UARTvoidReceiveString(Command);
-    if (strcmp(Command, PStart) == 0)
+    if (String_u8Comp(Command, PStart) == STRING_EQUL)
     {
         Flag = START;
-		SER_UARTvoidSendString("Green LED is on");
+        SER_UARTvoidSendString((uint8_t*)"Green LED is on");
     }
-    else if (strcmp(Command, Pstop) == 0)
+    else if (String_u8Comp(Command, Pstop) == STRING_EQUL)
     {
         Flag = STOP;
-		SER_UARTvoidSendString("Red LED is on");
+        SER_UARTvoidSendString((uint8_t*)"Red LED is on");
     }
-    else if (strcmp(Command, Pwait) == 0)
+    else if (String_u8Comp(Command, Pwait) == STRING_EQUL)
     {
         Flag = WAIT;
-		SER_UARTvoidSendString("Yellow LED is on");
+        SER_UARTvoidSendString((uint8_t*)"Yellow LED is on");
     }
     else
     {

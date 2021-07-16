@@ -18,7 +18,9 @@
 #define STOP    2;
 #define WAIT    3;
 
+#define STRING_EQUL 0
 
+uint8_t String_u8Comp(uint8_t *Str1, uint8_t *Str2);
 
 /**
  * @brief initialized LED, UART And DIo
