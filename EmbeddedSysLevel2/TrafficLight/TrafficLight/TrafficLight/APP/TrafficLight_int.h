@@ -20,13 +20,23 @@
 
 #define STRING_EQUL 0
 
+
+/**
+ * @brief Compare two string
+ * 
+ * @param Str1 first string
+ * @param Str2 second string
+ * @return uint8_t string is equal = 0 or not equal =1 
+ */
 uint8_t String_u8Comp(uint8_t *Str1, uint8_t *Str2);
+
 
 /**
  * @brief initialized LED, UART And DIo
  * 
  */
 void TrafficLight_voidInit(void);
+
 
 
 /**

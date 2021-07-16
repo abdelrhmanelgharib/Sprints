@@ -23,6 +23,9 @@ void TrafficLight_voidInit(void)
     LED_voidInitialize();
     UART_ENInit();
 }
+
+
+
 /**
  * @brief Compare two string
  * 
@@ -45,6 +48,8 @@ uint8_t String_u8Comp(uint8_t *Str1, uint8_t *Str2)
     }
     return Flag;
 }
+
+
 
 /**
  * @brief update system while sending command "start - wait - stop"
