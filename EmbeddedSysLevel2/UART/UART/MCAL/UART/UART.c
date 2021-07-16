@@ -137,6 +137,7 @@ EN_ERRORSTATE_t UART_ENSendData(uint8_t Data)
     while (!GETBIT(UCSRA, UDRE));
 
     UDR = Data;
+    return E_OK;
 }
 
 /**
