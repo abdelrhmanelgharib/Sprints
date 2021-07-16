@@ -13,8 +13,8 @@ int main(void)
 {
 	DIO_voidSetPortDirection(PORT_A, PRTOUTPUT);
     I2C_voidInitSlave();
-	 I2C_u8ReceiveNoACK();
-	uint8_t x = I2C_u8ReceiveNoACK();
+	 I2C_u8ReceiveACK();
+	uint8_t x = I2C_u8ReceiveACK();
 	DIO_voidSetPortValue(PORT_A, x);
 	
         /* Replace with your application code */

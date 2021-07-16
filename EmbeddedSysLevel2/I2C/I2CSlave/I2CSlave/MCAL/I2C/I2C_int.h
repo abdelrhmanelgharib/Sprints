@@ -30,7 +30,7 @@ typedef enum
  */
 void I2C_voidInitMaster(void);
 void I2C_voidInitSlave(void);
-EN_ErrorI2c_t I2C_voidMasterStart(void);
+EN_ErrorI2c_t I2C_voidMasterStart(uint8_t SlaveAddress);
 void I2C_voidMasterStop(void);
 EN_ErrorI2c_t I2C_voidSLA(uint8_t SlaveAddress);
 

@@ -22,16 +22,10 @@ void I2C_voidInitMaster(void)
 
    TWSR &= 0xFC;
    TWSR |= Prescaler;
-
-   // /* Enable TWI Flag */
-   // SETBIT(TWCR, TWINT);
    /* Enable TWI */
    SETBIT(TWCR, TWEN);
+   /* Enable ACK */
    SETBIT(TWCR, TWEA);
-
-   // /* wait to CLR TWI Flag */
-   // while (!(GETBIT(TWCR, TWINT)))
-   //    ;
 }
 
 void I2C_voidInitSlave(void)
@@ -48,15 +42,16 @@ void I2C_voidInitSlave(void)
 
    /* Enable TWI */
    SETBIT(TWCR, TWEN);
-   SETBIT(TWCR, TWEA);
 }
+
+
 
 /**
  * @brief Send Start condition 
  * Enable TWI And TWEN 
  *    
  */
-EN_ErrorI2c_t I2C_voidMasterStart(void)
+EN_ErrorI2c_t I2C_voidMasterStart(uint8_t SlaveAddress)
 {
    /* Start Condition */
    /* Becmome a master */
@@ -67,24 +62,26 @@ EN_ErrorI2c_t I2C_voidMasterStart(void)
    /* wait to CLR TWI Flag */
    while (!(GETBIT(TWCR, TWINT)))
       ;
-   // if (CheckStatus(0x08) == E_ERROR)
-   // {
-   //    return E_ERROR;
-   // }
-   // TWAR = (SlaveAddress << 1);
-   // /* CLR TWI Flag*/
-   // SETBIT(TWCR, TWINT);
-   // /* Enable TWI */
-   // SETBIT(TWCR, TWEN);
+   if (CheckStatus(0x08) == E_ERROR)
+   {
+      return E_ERROR;
+   }
+   TWDR = ((SlaveAddress - 1) << 1);
 
-   // while (!(GETBIT(TWCR, TWINT)))
-   //    ;
-   // if (CheckStatus(0x18) == E_ERROR)
-   // {
-   //    return E_ERROR;
-   // }
+   CLRBIT(TWDR, 0);
+   /* CLR TWI Flag*/
+   SETBIT(TWCR, TWINT);
+   /* CLR Start Condition */
+   CLRBIT(TWCR, TWSTA);
 
-   // return E_OK;
+   while (!(GETBIT(TWCR, TWINT)))
+      ;
+   if (CheckStatus(0x18) == E_ERROR)
+   {
+      return E_ERROR;
+   }
+
+   return E_OK;
 }
 
 void I2C_voidMasterStop(void)
@@ -97,35 +94,15 @@ void I2C_voidMasterStop(void)
       ;
 }
 
-EN_ErrorI2c_t I2C_voidSLA(uint8_t SlaveAddress)
-{
-   TWDR = (SlaveAddress << 1);
-   CLRBIT(TWDR, 0);
-   /* CLR TWI Flag*/
-   SETBIT(TWCR, TWINT);
-
-   CLRBIT(TWCR, 5);
-
-   while (!(GETBIT(TWCR, TWINT)))
-      ;
-
-   // if(CheckStatus(0x18) == E_ERROR)
-   // {
-   //    return E_ERROR;
-   // }
-}
-
 uint8_t I2C_u8ReceiveACK(void)
 {
    /* Enable ACK */
    SETBIT(TWCR, TWEA);
    /* CLR TWI Flag*/
    SETBIT(TWCR, TWINT);
-   /* Enable TWI */
-   SETBIT(TWCR, TWEN);
 
-   // while (!(GETBIT(TWCR, TWINT)))
-   //    ;
+   while (!(GETBIT(TWCR, TWINT)))
+      ;
    return TWDR;
 }
 
@@ -143,13 +120,13 @@ uint8_t I2C_u8ReceiveNoACK(void)
 {
    /* CLR TWI Flag*/
    SETBIT(TWCR, TWINT);
-   /* Enable TWI */
-   SETBIT(TWCR, TWEN);
 
-   // while (!(GETBIT(TWCR, TWINT)))
-   //    ;
+   while (!(GETBIT(TWCR, TWINT)))
+      ;
    return TWDR;
 }
+
+
 
 EN_ErrorI2c_t CheckStatus(uint8_t status)
 {

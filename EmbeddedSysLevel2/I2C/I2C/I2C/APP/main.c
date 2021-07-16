@@ -12,8 +12,7 @@
 int main(void)
 {
     I2C_voidInitMaster();
-    I2C_voidMasterStart();
-    I2C_voidSLA(1);
+    I2C_voidMasterStart(2);
     I2C_voidSendData('a');
     I2C_voidMasterStop();
 
