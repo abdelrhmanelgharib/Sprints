@@ -1,8 +1,13 @@
-/*
- *  Author: Vicious
- *  Created on: 11/7/2021
+/**
+ * @file Memmap.h
+ * @author Elgharib
+ * @brief 
+ * @version 0.1
+ * @date 2021-05-25
+ * 
+ * @copyright Copyright (c) 2021
+ * 
  */
-
 #ifndef MEMMAP_H_
 #define MEMMAP_H_
 
@@ -215,6 +220,14 @@
 #define TWGCE   0
 
 #define TWDR    (*(volatile uint8_t*) 0x23)
+#define TWD7    7
+#define TWD6    6
+#define TWD5    5
+#define TWD4    4
+#define TWD3    3
+#define TWD2    2
+#define TWD1    1
+#define TWD0    0
 
 #define TWCR    (*(volatile uint8_t*) 0x56)
 #define TWINT   7

@@ -1,8 +1,13 @@
-/*
- *  Author: Vicious
- *  Created on: 11/7/2021
+/**
+ * @file Memmap.h
+ * @author Elgharib
+ * @brief 
+ * @version 0.1
+ * @date 2021-05-25
+ * 
+ * @copyright Copyright (c) 2021
+ * 
  */
-
 #ifndef MEMMAP_H_
 #define MEMMAP_H_
 

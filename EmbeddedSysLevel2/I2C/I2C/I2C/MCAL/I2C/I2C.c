@@ -8,11 +8,11 @@
  */
 
 #include "I2C_int.h"
-#include "Memmap.h"
+
 
 /**
  * @brief Initialize Master
- * 
+ *        
  */
 void I2C_voidInitMaster(void)
 {
@@ -28,7 +28,12 @@ void I2C_voidInitMaster(void)
    SETBIT(TWCR, TWEA);
 }
 
-void I2C_voidInitSlave(void)
+/**
+ * @brief Initialize slave address
+ * 
+ * @param SlaveAddress device address
+ */
+void I2C_voidInitSlave(uint8_t SlaveAddress)
 {
    /* Fcpu 8MHz */
    /* SCL=Fcpu/(16+(2xTWBRx4^TWPS)) = 100 KHz */
@@ -38,18 +43,17 @@ void I2C_voidInitSlave(void)
    TWSR |= Prescaler;
 
    //set slave address &&diable globale calling
-   TWAR = 2;
+   TWAR = (SlaveAddress << 1);
 
    /* Enable TWI */
    SETBIT(TWCR, TWEN);
 }
 
-
-
 /**
- * @brief Send Start condition 
- * Enable TWI And TWEN 
- *    
+ * @brief send start Condition 
+ * 
+ * @param SlaveAddress master send address of slave to communicate
+ * @return EN_ErrorI2c_t error status
  */
 EN_ErrorI2c_t I2C_voidMasterStart(uint8_t SlaveAddress)
 {
@@ -66,9 +70,8 @@ EN_ErrorI2c_t I2C_voidMasterStart(uint8_t SlaveAddress)
    {
       return E_ERROR;
    }
-   TWDR = ((SlaveAddress - 1) << 1);
+   TWDR = ((SlaveAddress << 1) & 0xFE);
 
-   CLRBIT(TWDR, 0);
    /* CLR TWI Flag*/
    SETBIT(TWCR, TWINT);
    /* CLR Start Condition */
@@ -84,6 +87,10 @@ EN_ErrorI2c_t I2C_voidMasterStart(uint8_t SlaveAddress)
    return E_OK;
 }
 
+/**
+ * @brief send Stop Condition
+ * 
+ */
 void I2C_voidMasterStop(void)
 {
    /* Enable Stop Condition */
@@ -94,6 +101,12 @@ void I2C_voidMasterStop(void)
       ;
 }
 
+
+/**
+ * @brief Receive data and enable ACK
+ * 
+ * @return uint8_t Data
+ */
 uint8_t I2C_u8ReceiveACK(void)
 {
    /* Enable ACK */
@@ -106,6 +119,13 @@ uint8_t I2C_u8ReceiveACK(void)
    return TWDR;
 }
 
+
+
+/**
+ * @brief Send Data
+ * 
+ * @param Data 
+ */
 void I2C_voidSendData(uint8_t Data)
 {
    TWDR = Data;
@@ -116,6 +136,13 @@ void I2C_voidSendData(uint8_t Data)
       ;
 }
 
+
+
+/**
+ * @brief Receive data and Disable ACK
+ * 
+ * @return uint8_t data
+ */
 uint8_t I2C_u8ReceiveNoACK(void)
 {
    /* CLR TWI Flag*/
@@ -128,6 +155,12 @@ uint8_t I2C_u8ReceiveNoACK(void)
 
 
 
+/**
+ * @brief 
+ * 
+ * @param status 
+ * @return EN_ErrorI2c_t 
+ */
 EN_ErrorI2c_t CheckStatus(uint8_t status)
 {
    if (status != (TWSR & 0XF8))
