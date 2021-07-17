@@ -9,7 +9,6 @@
 
 #include "I2C_int.h"
 
-
 /**
  * @brief Initialize Master
  *        
@@ -42,20 +41,25 @@ void I2C_voidInitSlave(uint8_t SlaveAddress)
    TWSR &= 0xFC;
    TWSR |= Prescaler;
 
-   //set slave address &&diable globale calling
-   TWAR = (SlaveAddress << 1);
-
+   SETBIT(TWCR, TWINT);
    /* Enable TWI */
    SETBIT(TWCR, TWEN);
+   /* Enable ACK */
+   SETBIT(TWCR, TWEA);
+
+   //set slave address &&disable globale calling
+   TWAR = (SlaveAddress << 1);
+
+   while (!(GETBIT(TWCR, TWINT)))
+      ;
 }
 
 /**
- * @brief send start Condition 
+ * @brief send start Condition  
  * 
- * @param SlaveAddress master send address of slave to communicate
  * @return EN_ErrorI2c_t error status
  */
-EN_ErrorI2c_t I2C_voidMasterStart(uint8_t SlaveAddress)
+EN_ErrorI2c_t I2C_voidMasterStart(void)
 {
    /* Start Condition */
    /* Becmome a master */
@@ -70,12 +74,48 @@ EN_ErrorI2c_t I2C_voidMasterStart(uint8_t SlaveAddress)
    {
       return E_ERROR;
    }
+
+   return E_OK;
+}
+
+
+/**
+ * @brief master send address of the slave to Write
+ * 
+ * @param SlaveAddress address of device to Write data 
+ * @return EN_ErrorI2c_t error status
+ */
+EN_ErrorI2c_t I2C_void_M_AddressSLV_Write(uint8_t SlaveAddress)
+{
    TWDR = ((SlaveAddress << 1) & 0xFE);
 
    /* CLR TWI Flag*/
    SETBIT(TWCR, TWINT);
-   /* CLR Start Condition */
-   CLRBIT(TWCR, TWSTA);
+
+   while (!(GETBIT(TWCR, TWINT)))
+      ;
+   if (CheckStatus(0x18) == E_ERROR)
+   {
+      return E_ERROR;
+   }
+
+   return E_OK;
+}
+
+/**
+ * @brief master send address of the slave to Read
+ * 
+ * @param SlaveAddress address of device to Read data
+ * @return EN_ErrorI2c_t 
+ */
+EN_ErrorI2c_t I2C_void_M_AddressSLV_Read(uint8_t SlaveAddress)
+{
+   TWDR = (SlaveAddress << 1);
+   /* Read */
+   SETBIT(TWDR, TWD0);
+
+   /* CLR TWI Flag*/
+   SETBIT(TWCR, TWINT);
 
    while (!(GETBIT(TWCR, TWINT)))
       ;
@@ -101,7 +141,6 @@ void I2C_voidMasterStop(void)
       ;
 }
 
-
 /**
  * @brief Receive data and enable ACK
  * 
@@ -119,8 +158,6 @@ uint8_t I2C_u8ReceiveACK(void)
    return TWDR;
 }
 
-
-
 /**
  * @brief Send Data
  * 
@@ -136,8 +173,6 @@ void I2C_voidSendData(uint8_t Data)
       ;
 }
 
-
-
 /**
  * @brief Receive data and Disable ACK
  * 
@@ -152,8 +187,6 @@ uint8_t I2C_u8ReceiveNoACK(void)
       ;
    return TWDR;
 }
-
-
 
 /**
  * @brief 

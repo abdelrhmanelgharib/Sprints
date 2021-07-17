@@ -15,11 +15,14 @@
 
 int main(void)
 {
+	uint8_t status=0;
 	DIO_voidSetPortDirection(PORT_A, PRTOUTPUT);
-    I2C_voidInitSlave(2);
-	 I2C_u8ReceiveACK();
+    I2C_voidInitSlave((uint8_t)110);
+	
+	// I2C_u8ReceiveACK();
 	uint8_t x = I2C_u8ReceiveACK();
 	DIO_voidSetPortValue(PORT_A, x);
+
 	
         /* Replace with your application code */
         while (1)

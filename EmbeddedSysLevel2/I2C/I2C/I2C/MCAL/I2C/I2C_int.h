@@ -42,12 +42,30 @@ void I2C_voidInitSlave(uint8_t SlaveAddress);
 
 
 /**
- * @brief send start Condition 
+ * @brief send start Condition  
  * 
- * @param SlaveAddress master send address of slave to communicate
  * @return EN_ErrorI2c_t error status
  */
-EN_ErrorI2c_t I2C_voidMasterStart(uint8_t SlaveAddress);
+EN_ErrorI2c_t I2C_voidMasterStart(void);
+
+/**
+ * @brief master send address of the slave to Write
+ * 
+ * @param SlaveAddress address of device to Write data 
+ * @return EN_ErrorI2c_t error status
+ */
+EN_ErrorI2c_t I2C_void_M_AddressSLV_Write(uint8_t SlaveAddress);
+
+
+
+/**
+ * @brief master send address of the slave to Read
+ * 
+ * @param SlaveAddress address of device to Read data
+ * @return EN_ErrorI2c_t 
+ */
+EN_ErrorI2c_t I2C_void_M_AddressSLV_Read(uint8_t SlaveAddress);
+
 
 
 
