@@ -18,7 +18,6 @@ int main(void)
     uint8_t str[255];
 
     SER_SPIvoidInitPinMaster();
-    DIO_voidSetPinValue(PORT_B, PIN7, LOW);
 	
 	
 	DIO_voidSetPinDirection(PORT_D, PIN0, INPUT);
