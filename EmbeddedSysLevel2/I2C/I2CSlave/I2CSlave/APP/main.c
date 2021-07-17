@@ -1,8 +1,12 @@
-/*
- * I2C.c
- *
- * Created: 7/15/2021 7:47:58 PM
- * Author : 2bdoa
+/**
+ * @file main.c
+ * @author Elgharib
+ * @brief 
+ * @version 0.1
+ * @date 2021-07-17
+ * 
+ * @copyright Copyright (c) 2021
+ * 
  */
 
 #include "DataTypes.h"
@@ -12,7 +16,7 @@
 int main(void)
 {
 	DIO_voidSetPortDirection(PORT_A, PRTOUTPUT);
-    I2C_voidInitSlave();
+    I2C_voidInitSlave(2);
 	 I2C_u8ReceiveACK();
 	uint8_t x = I2C_u8ReceiveACK();
 	DIO_voidSetPortValue(PORT_A, x);
