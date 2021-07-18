@@ -23,8 +23,6 @@ void I2C_voidInitMaster(void)
    TWSR |= Prescaler;
    /* Enable TWI */
    SETBIT(TWCR, TWEN);
-   /* Enable ACK */
-   SETBIT(TWCR, TWEA);
 }
 
 /**
@@ -59,7 +57,7 @@ void I2C_voidInitSlave(uint8_t SlaveAddress)
  * 
  * @return EN_ErrorI2c_t error status
  */
-EN_ErrorI2c_t I2C_voidMasterStart(void)
+EN_ERRORSTATE_t I2C_voidMasterStart(void)
 {
    /* Start Condition */
    /* Becmome a master */
@@ -84,10 +82,12 @@ EN_ErrorI2c_t I2C_voidMasterStart(void)
  * @param SlaveAddress address of device to Write data 
  * @return EN_ErrorI2c_t error status
  */
-EN_ErrorI2c_t I2C_void_M_AddressSLV_Write(uint8_t SlaveAddress)
+EN_ERRORSTATE_t I2C_void_M_AddressSLV_Write(uint8_t SlaveAddress)
 {
-   TWDR = ((SlaveAddress << 1) & 0xFE);
+   TWDR = (SlaveAddress & 0xFE);
 
+   /* CLR start bit */
+   CLRBIT(TWCR, TWSTA);
    /* CLR TWI Flag*/
    SETBIT(TWCR, TWINT);
 
@@ -107,12 +107,13 @@ EN_ErrorI2c_t I2C_void_M_AddressSLV_Write(uint8_t SlaveAddress)
  * @param SlaveAddress address of device to Read data
  * @return EN_ErrorI2c_t 
  */
-EN_ErrorI2c_t I2C_void_M_AddressSLV_Read(uint8_t SlaveAddress)
+EN_ERRORSTATE_t I2C_void_M_AddressSLV_Read(uint8_t SlaveAddress)
 {
-   TWDR = (SlaveAddress << 1);
+   TWDR = (SlaveAddress & 0xFE);
    /* Read */
    SETBIT(TWDR, TWD0);
-
+   /* CLR Start Bit */
+   CLRBIT(TWCR, TWSTA);
    /* CLR TWI Flag*/
    SETBIT(TWCR, TWINT);
 
@@ -134,10 +135,11 @@ void I2C_voidMasterStop(void)
 {
    /* Enable Stop Condition */
    SETBIT(TWCR, TWSTO);
+   /* Enable TWI */
+   SETBIT(TWCR, TWEN);
+   /* CLR TWI Flag*/
    SETBIT(TWCR, TWINT);
 
-   while (!(GETBIT(TWCR, TWINT)))
-      ;
 }
 
 /**
@@ -179,6 +181,8 @@ void I2C_voidSendData(uint8_t Data)
  */
 uint8_t I2C_u8ReceiveNoACK(void)
 {
+   /* Disable ACK */
+   CLRBIT(TWCR, TWEA);
    /* CLR TWI Flag*/
    SETBIT(TWCR, TWINT);
 
@@ -193,7 +197,7 @@ uint8_t I2C_u8ReceiveNoACK(void)
  * @param status 
  * @return EN_ErrorI2c_t 
  */
-EN_ErrorI2c_t CheckStatus(uint8_t status)
+EN_ERRORSTATE_t CheckStatus(uint8_t status)
 {
    if (status != (TWSR & 0XF8))
    {

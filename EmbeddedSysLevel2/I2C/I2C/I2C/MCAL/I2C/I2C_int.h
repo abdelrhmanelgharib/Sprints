@@ -18,11 +18,6 @@
 #include "I2C_config.h"
 
 
-typedef enum
-{
-    E_ERROR,
-    E_OK
-}EN_ErrorI2c_t;
 
 /**
  * @brief Initialize Master
