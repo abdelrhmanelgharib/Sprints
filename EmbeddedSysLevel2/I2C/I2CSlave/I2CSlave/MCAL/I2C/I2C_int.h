@@ -39,17 +39,17 @@ void I2C_voidInitSlave(uint8_t SlaveAddress);
 /**
  * @brief send start Condition  
  * 
- * @return EN_ErrorI2c_t error status
+ * @return EN_ERRORSTATE_t error status
  */
-EN_ErrorI2c_t I2C_voidMasterStart(void);
+EN_ERRORSTATE_t I2C_voidMasterStart(void);
 
 /**
  * @brief master send address of the slave to Write
  * 
  * @param SlaveAddress address of device to Write data 
- * @return EN_ErrorI2c_t error status
+ * @return EN_ERRORSTATE_t error status
  */
-EN_ErrorI2c_t I2C_void_M_AddressSLV_Write(uint8_t SlaveAddress);
+EN_ERRORSTATE_t I2C_void_M_AddressSLV_Write(uint8_t SlaveAddress);
 
 
 
@@ -57,9 +57,9 @@ EN_ErrorI2c_t I2C_void_M_AddressSLV_Write(uint8_t SlaveAddress);
  * @brief master send address of the slave to Read
  * 
  * @param SlaveAddress address of device to Read data
- * @return EN_ErrorI2c_t 
+ * @return EN_ERRORSTATE_t 
  */
-EN_ErrorI2c_t I2C_void_M_AddressSLV_Read(uint8_t SlaveAddress);
+EN_ERRORSTATE_t I2C_void_M_AddressSLV_Read(uint8_t SlaveAddress);
 
 
 
@@ -104,9 +104,9 @@ uint8_t I2C_u8ReceiveNoACK(void);
  * @brief 
  * 
  * @param status 
- * @return EN_ErrorI2c_t 
+ * @return EN_ERRORSTATE_t 
  */
-EN_ErrorI2c_t CheckStatus(uint8_t status);
+EN_ERRORSTATE_t CheckStatus(uint8_t status);
 
 
 

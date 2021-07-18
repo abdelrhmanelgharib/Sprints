@@ -18,28 +18,21 @@
 
 
 
-typedef enum
-{
-    E_SPIERROR ,
-    E_OKSPI
-}EN_SPIESTATE_t;
-
-
 
 /**
  * @brief initialized  Master
  * 
- * @return EN_SPIESTATE_t E_SPIERROR | E_OKSPI
+ * @return EN_ERRORSTATE_t E_ERROR | E_OK
  */
-EN_SPIESTATE_t SPI_ENMasterInit(void);
+EN_ERRORSTATE_t SPI_ENMasterInit(void);
 
 
 /**
  * @brief initialized Slave
  * 
- * @return EN_SPIESTATE_t E_SPIERROR | E_OKSPI
+ * @return EN_ERRORSTATE_t E_ERROR | E_OK
  */
-EN_SPIESTATE_t SPI_ENSlaveInit(void);
+EN_ERRORSTATE_t SPI_ENSlaveInit(void);
 
 
 

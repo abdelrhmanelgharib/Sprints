@@ -19,11 +19,7 @@
 #include "../../lib/Memmap.h"
 
 
-typedef enum
-{
-    E_ERROR,
-    E_OK
-}EN_ERRORSTATE_t;
+
 
 
 /**

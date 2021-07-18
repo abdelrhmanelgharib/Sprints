@@ -3,7 +3,9 @@
  * @author Elgharib
  * @brief 
  * @version 0.1
- * @date 2021-07-11
+ * @date 2021-07-17
+ * 
+ * @copyright Copyright (c) 2021
  * 
  */
 
@@ -22,6 +24,10 @@ typedef signed long long int    sint64_t;
 
 #define NULLPTR (void*)0
 
+typedef enum
+{
+    E_ERROR,
+    E_OK
+}EN_ERRORSTATE_t;
 
-
-#endif
+#endif  /* _DATATYPES_H_ */
