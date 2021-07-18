@@ -1,6 +1,23 @@
 .vscode
 /.metadata/
 EmbeddedSysLevel2/.metadata
+
+EmbeddedSysLevel2/TrafficLight/TrafficLight/TrafficLight/Debug
+EmbeddedSysLevel2/TWI/Debug
+EmbeddedSysLevel2/Com2MCUSPI/SlaveSPI/Debug
+EmbeddedSysLevel2/Com2MCUSPI/MasterSPI/MasterSPI/Debug
+EmbeddedSysLevel2/I2C/I2C/I2C/Debug
+EmbeddedSysLevel2/I2C/I2CSlave/I2CSlave/Debug
+EmbeddedSysLevel2/EEPROM/Debug
+
+
+
+/**************************************************//
 EmbeddedSysLevel2/TWI/.settings/de.innot.avreclipse.core.prefs
 EmbeddedSysLevel2/TWI/.project
 
+EmbeddedSysLevel2/TWI/.cproject
+EmbeddedSysLevel2/TrafficLight/TrafficLight.drawio
+EmbeddedSysLevel2/EEPROM/.settings/de.innot.avreclipse.core.prefs
+EmbeddedSysLevel2/EEPROM/.project
+EmbeddedSysLevel2/EEPROM/.cproject
