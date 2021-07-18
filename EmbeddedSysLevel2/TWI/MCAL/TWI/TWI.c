@@ -70,7 +70,7 @@ void TWI_voidSLV_Write(unsigned char SLV_W)
 {
    /* CLR Bit zero to write  address*/
    CLRBIT(TWDR, TWD0);
-   TWDR = ((SLV_W-1) << 1);
+   TWDR = ((SLV_W << 1) & 0xFE);
 
    /* CLr TWI Flag and En TWI */
    TWI_voidEnable();

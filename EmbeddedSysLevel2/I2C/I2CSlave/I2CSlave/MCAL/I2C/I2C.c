@@ -46,7 +46,7 @@ void I2C_voidInitSlave(uint8_t SlaveAddress)
    SETBIT(TWCR, TWEA);
 
    //set slave address &&disable globale calling
-   TWAR = (SlaveAddress << 1);
+   TWAR = (SlaveAddress & 0xFE);
 
    while (!(GETBIT(TWCR, TWINT)))
       ;

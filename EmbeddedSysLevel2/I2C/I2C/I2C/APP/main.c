@@ -15,8 +15,6 @@
 
 int main(void)
 {
-	DIO_voidSetPortDirection(PORT_B,PRTOUTPUT);
-	DIO_voidSetPortValue(PORT_B, PRTHIGH);
     I2C_voidInitMaster();
     I2C_voidMasterStart();
 	I2C_void_M_AddressSLV_Write((uint8_t)110);
