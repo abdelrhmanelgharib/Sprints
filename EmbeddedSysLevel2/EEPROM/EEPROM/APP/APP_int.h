@@ -42,17 +42,33 @@ uint8_t String_u8Comp(uint8_t *Str1, uint8_t *Str2);
 
 
 /**
- * @brief 
+ * @brief Convert String to Number 
  * 
- * @param Str 
- * @return uint32_t 
+ * @param Str Pointer to the first element in the array
+ * @return uint32_t Number after Converted to Real Numb
  */
 uint32_t String_u8ToNumb(uint8_t *Str);
 
+
+/**
+ * @brief Convert Binary to Decimal
+ * 
+ * @param u32_Binary Binary Number
+ * @return uint8_t Decimal Numb
+ */
 uint8_t Binary_u8ToNumb(uint32_t u32_Binary);
 
-
+/**
+ * @brief This Function For case User Write On EEPROM
+ * 
+ */
 void APP_voidWrite(void);
+
+
+/**
+ * @brief This Function For Case User Read From EEPROM
+ * 
+ */
 void APP_voidRead(void);
 
 #endif  /* APP_INT_H_ */

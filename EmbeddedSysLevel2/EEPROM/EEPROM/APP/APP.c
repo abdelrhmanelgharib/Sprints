@@ -52,6 +52,13 @@ uint8_t String_u8Comp(uint8_t *Str1, uint8_t *Str2)
     return Flag;
 }
 
+
+/**
+ * @brief Convert String to Number 
+ * 
+ * @param Str Pointer to the first element in the array
+ * @return uint32_t Number after Converted to Real Numb
+ */
 uint32_t String_u8ToNumb(uint8_t *Str)
 {
     uint8_t i;
@@ -63,6 +70,13 @@ uint32_t String_u8ToNumb(uint8_t *Str)
     return Result;
 }
 
+
+/**
+ * @brief Convert Binary to Decimal
+ * 
+ * @param u32_Binary Binary Number
+ * @return uint8_t Decimal Numb
+ */
 uint8_t Binary_u8ToNumb(uint32_t u32_Binary)
 {
     uint32_t Dec = 0, base = 1, rem;
@@ -77,16 +91,21 @@ uint8_t Binary_u8ToNumb(uint32_t u32_Binary)
     return Dec;
 }
 
+
+/**
+ * @brief This Function For case User Write On EEPROM
+ * 
+ */
 void APP_voidWrite(void)
 {
-    uint8_t Data[255], binary_add;
+    uint8_t Data[9], binary_add;
     uint32_t address = 0;
 
-    /* Receive EEPROM address of byte  */
+    /* Receive address of the Data as Binary and store in the Data */
     SER_UARTvoidReceiveString(Data);
     /* convert string to Numb */
     address = String_u8ToNumb(Data);
-    /* convert Number to Decimal */
+    /* convert Number "Binary" to Decimal */
     binary_add = Binary_u8ToNumb(address);
     SER_UARTvoidSendString((uint8_t*)"OK");
     /* Receive 1 letter*/
@@ -99,9 +118,14 @@ void APP_voidWrite(void)
     }
 }
 
+
+/**
+ * @brief This Function For Case User Read From EEPROM
+ * 
+ */
 void APP_voidRead(void)
 {
-    uint8_t Data[255], binary_add;
+    uint8_t Data[9], binary_add;
     uint32_t address = 0;
     /* Receive EEPROM address of byte  */
     SER_UARTvoidReceiveString(Data);
