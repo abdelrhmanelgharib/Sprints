@@ -1,5 +1,16 @@
-#ifndef HAL_LCD_LCD_CONFIG_H_
-#define HAL_LCD_LCD_CONFIG_H_
+/**
+ * @file LCD_config.h
+ * @author Elgharib
+ * @brief File Configuration
+ * @version 0.1
+ * @date 2021-07-20
+ * 
+ * @copyright Copyright (c) 2021
+ * 
+ */
+
+#ifndef LCD_CONFIG_H_
+#define LCD_CONFIG_H_
 
 
 
@@ -22,10 +33,11 @@
 #define LCD_8BITS_MODE       0
 #define LCD_4BITS_MODE       1
 
+/* LCD_4BITS_MODE - LCD_8BITS_MODE */
 #define LCD_CURRENT_MODE     LCD_4BITS_MODE
 
 
 
 
 
-#endif /* HAL_LCD_LCD_CONFIG_H_ */
+#endif /* LCD_CONFIG_H_ */

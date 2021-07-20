@@ -1,6 +1,12 @@
-/*
- *  Author: El-Gharib
- *  Created on: 17/2/2021
+/**
+ * @file LCD_Interface.h
+ * @author Elgharib
+ * @brief 
+ * @version 0.1
+ * @date 2021-07-20
+ * 
+ * @copyright Copyright (c) 2021
+ * 
  */
 
 #ifndef LCD_INTERFACE_H_
