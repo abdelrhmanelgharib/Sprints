@@ -20,7 +20,7 @@ static uint8_t *gPrece_str = NULLPTR, gFlag = 1;
 EN_ERRORSTATE_t UART_ENInit(void)
 {
     EN_ERRORSTATE_t Enstate;
-	Enstate = E_OK;
+    Enstate = E_OK;
     /* Clear  URSEL to update UBRRH*/
     CLRBIT(UCSRC, URSEL);
     /* Boud Rate */
@@ -131,7 +131,8 @@ EN_ERRORSTATE_t UART_ENInit(void)
 EN_ERRORSTATE_t UART_ENSendData(uint8_t Data)
 {
     /* Wait to Data Register Empty */
-    while (!GETBIT(UCSRA, UDRE));
+    while (!GETBIT(UCSRA, UDRE))
+        ;
 
     UDR = Data;
     return E_OK;
