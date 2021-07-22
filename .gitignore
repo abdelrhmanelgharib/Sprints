@@ -21,3 +21,16 @@ EmbeddedSysLevel2/TrafficLight/TrafficLight.drawio
 EmbeddedSysLevel2/EEPROM/.settings/de.innot.avreclipse.core.prefs
 EmbeddedSysLevel2/EEPROM/.project
 EmbeddedSysLevel2/EEPROM/.cproject
+EmbeddedSysLevel2/KeyPad_Lcd/Debug
+EmbeddedSysLevel2/KeyPad_Lcd/.cproject
+EmbeddedSysLevel2/KeyPad_Lcd/.project
+EmbeddedSysLevel2/KeyPad_Lcd/.settings/de.innot.avreclipse.core.prefs
+EmbeddedSysLevel2/ADC/Debug
+EmbeddedSysLevel2/ADC/.project
+EmbeddedSysLevel2/ADC/.cproject
+EmbeddedSysLevel2/ADC/.settings/de.innot.avreclipse.core.prefs
+EmbeddedSysLevel2/Thermostat/.cproject
+EmbeddedSysLevel2/Thermostat/.project
+EmbeddedSysLevel2/Thermostat/.settings/de.innot.avreclipse.core.prefs
+EmbeddedSysLevel2/Thermostat/Debug
+EmbeddedSysLevel2/Thermostat/.settings/org.eclipse.cdt.codan.core.prefs
