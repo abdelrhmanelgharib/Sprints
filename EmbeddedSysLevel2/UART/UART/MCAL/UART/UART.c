@@ -12,7 +12,6 @@
 static uint8_t *gPsend_str = NULLPTR;
 static uint8_t *gPrece_str = NULLPTR, gFlag = 1;
 
-
 /**
  * @brief Initialized UART 
  * 
@@ -123,8 +122,6 @@ EN_ERRORSTATE_t UART_ENInit(void)
     return Enstate;
 } /* UART_ENInit */
 
-
-
 /**
  * @brief Send One Character
  * 
@@ -159,7 +156,8 @@ EN_ERRORSTATE_t UART_ENSendNoBlock(uint8_t Data)
  */
 uint8_t UART_u8ReceiveData(void)
 {
-    while (!GETBIT(UCSRA, RXC));
+    while (!GETBIT(UCSRA, RXC))
+        ;
     return UDR;
 }
 
@@ -171,7 +169,17 @@ uint8_t UART_u8ReceiveData(void)
  */
 uint8_t UART_u8ReceiveNoBlock(uint8_t *Data)
 {
-    return UDR;
+    uint8_t status = 0;
+    if (GETBIT(UCSRA, RXC))
+    {
+        *Data = UDR;
+        status = 1;
+    }
+    else
+    {
+        /* do nothing */
+    }
+    return status;
 }
 
 /**
@@ -225,7 +233,6 @@ void UART_voidReceiveString_Ashync(uint8_t *Str)
     gPrece_str = Str;
 }
 
-
 /**
  * @brief Transmit interrupt 
  * 
@@ -249,7 +256,6 @@ void __vector_15(void)
     }
 }
 
-
 /**
  * @brief Receive interrupt
  * 
@@ -257,8 +263,10 @@ void __vector_15(void)
 void __vector_13(void)
 {
     static uint8_t i = 0;
-    gPrece_str[i] = UART_u8ReceiveNoBlock(gPrece_str[i]);
-    i++;
+    if (UART_u8ReceiveNoBlock(gPrece_str[i]))
+    {
+        i++;
+    }
     if (i > 98)
         i = 0;
 }
