@@ -111,7 +111,7 @@
 
 #define ICR1L  (*(volatile uint8_t*) 0x46)
 #define ICR1H  (*(volatile uint8_t*) 0x47
-#define TCNT1  (*(volatile u16*) 0x4C)
+#define TCNT1  (*(volatile uint16_t*) 0x4C)
 /*******************************************************************************
  *                           ADC Registers                                     *
 ********************************************************************************/
@@ -133,7 +133,7 @@
 
 #define ADCH    (*(volatile uint8_t*) 0x25)
 #define ADCL    (*(volatile uint8_t*) 0x24)
-#define ADC	    (*(volatile u16*)0x24)
+#define ADC	    (*(volatile uint16_t*)0x24)
 
 /*******************************************************************************
  *                           UART Registers                                     *
