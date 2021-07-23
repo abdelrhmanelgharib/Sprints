@@ -12,13 +12,11 @@
 #include "KeyPad_int.h"
 #include "avr/delay.h"
 
-
 static uint8_t gKEYPADArr[4][4] = {
     {'7', '8', '9', '/'},
     {'4', '5', '6', '*'},
     {'1', '2', '3', '-'},
     {'c', '0', '=', '+'}};
-
 
 /**
  * @brief Initialize KeyPad Pins
@@ -26,23 +24,21 @@ static uint8_t gKEYPADArr[4][4] = {
  */
 void KEYPAD_voidInit(void)
 {
-	DIO_voidInpullUp(KEYPAD_PORT, KEYPAD_INPUT0);
-	DIO_voidInpullUp(KEYPAD_PORT, KEYPAD_INPUT1);
-	DIO_voidInpullUp(KEYPAD_PORT, KEYPAD_INPUT2);
-	DIO_voidInpullUp(KEYPAD_PORT, KEYPAD_INPUT3);
+    DIO_voidInpullUp(KEYPAD_PORT, KEYPAD_INPUT0);
+    DIO_voidInpullUp(KEYPAD_PORT, KEYPAD_INPUT1);
+    DIO_voidInpullUp(KEYPAD_PORT, KEYPAD_INPUT2);
+    DIO_voidInpullUp(KEYPAD_PORT, KEYPAD_INPUT3);
 
-	DIO_voidSetPinDirection(KEYPAD_INPORT, KEYPAD_OUTPUT0, OUTPUT);
-	DIO_voidSetPinDirection(KEYPAD_INPORT, KEYPAD_OUTPUT1, OUTPUT);
-	DIO_voidSetPinDirection(KEYPAD_INPORT, KEYPAD_OUTPUT2, OUTPUT);
-	DIO_voidSetPinDirection(KEYPAD_INPORT, KEYPAD_OUTPUT3, OUTPUT);
-
+    DIO_voidSetPinDirection(KEYPAD_INPORT, KEYPAD_OUTPUT0, OUTPUT);
+    DIO_voidSetPinDirection(KEYPAD_INPORT, KEYPAD_OUTPUT1, OUTPUT);
+    DIO_voidSetPinDirection(KEYPAD_INPORT, KEYPAD_OUTPUT2, OUTPUT);
+    DIO_voidSetPinDirection(KEYPAD_INPORT, KEYPAD_OUTPUT3, OUTPUT);
 
     DIO_voidSetPinValue(KEYPAD_INPORT, KEYPAD_OUTPUT0, HIGH);
     DIO_voidSetPinValue(KEYPAD_INPORT, KEYPAD_OUTPUT1, HIGH);
     DIO_voidSetPinValue(KEYPAD_INPORT, KEYPAD_OUTPUT2, HIGH);
     DIO_voidSetPinValue(KEYPAD_INPORT, KEYPAD_OUTPUT3, HIGH);
 }
-
 
 /**
  * @brief Read Pressed Button on KeyPad and Return Key
@@ -52,18 +48,22 @@ void KEYPAD_voidInit(void)
 uint8_t KEYPAD_u8Read(void)
 {
     uint8_t i, j, key = DEFAULT_KEY;
-    for (i = 0; i < ROW; i++)
+    while (1)
     {
-        DIO_voidSetPinValue(KEYPAD_PORT, KEYPAD_OUTPUT0 + i, LOW);
-        for (j = 0; j < COL; j++)
+        for (i = 0; i < ROW; i++)
         {
-            if (! DIO_u8GetPinValue(KEYPAD_PORT, KEYPAD_INPUT0 + j))
+            DIO_voidSetPinValue(KEYPAD_PORT, KEYPAD_OUTPUT0 + i, LOW);
+            for (j = 0; j < COL; j++)
             {
-                key = gKEYPADArr[i][j];
-                while(! DIO_u8GetPinValue(KEYPAD_PORT, KEYPAD_INPUT0 + j));
+                if (!DIO_u8GetPinValue(KEYPAD_PORT, KEYPAD_INPUT0 + j))
+                {
+                    key = gKEYPADArr[i][j];
+                    while (!DIO_u8GetPinValue(KEYPAD_PORT, KEYPAD_INPUT0 + j))
+                        ;
+                }
             }
+            DIO_voidSetPinValue(KEYPAD_PORT, KEYPAD_OUTPUT0 + i, HIGH);
         }
-        DIO_voidSetPinValue(KEYPAD_PORT, KEYPAD_OUTPUT0 + i, HIGH);
+        return key;
     }
-    return key;
 }
