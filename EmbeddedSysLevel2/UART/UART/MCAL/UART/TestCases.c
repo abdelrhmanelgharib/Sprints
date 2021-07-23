@@ -25,7 +25,7 @@ void TestSendChar(void)
  * @brief Test Send No Block
  * 
  */
-void TestSendNoBlock(void);
+void TestSendNoBlock(void)
 {
     UART_ENSendNoBlock('e');
 }
