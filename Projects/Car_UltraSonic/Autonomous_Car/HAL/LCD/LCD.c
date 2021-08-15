@@ -10,6 +10,7 @@
  */
 
 #include "LCD.h"
+#include "LCD_cfg.h"
 #include "Timer.h"
 /**
  * @brief Initialize LCD Pins and LCD Mode
@@ -32,11 +33,11 @@ void LCD_voidInit(void)
 
 	/* LCD Init Command */
 	_delay_ms(30);
-	LCD_voidSendCommand(0x38);
+	LCD_voidSendCommand(LCD_COM_FUNCTION_SET_8BIT);
 	_delay_ms(1);
-	LCD_voidSendCommand(0x0E);
+	LCD_voidSendCommand(CURSOR_ON);
 	_delay_ms(1);
-	LCD_voidSendCommand(0x01);
+	LCD_voidSendCommand(LCD_COM_CLEAR);
 	_delay_ms(3);
 
 /* 4 Bit Mode */
@@ -46,20 +47,26 @@ void LCD_voidInit(void)
 	DIO_voidSetPinDirection(LCD_4BITS_PORT, LCD_4BITS_PIN3, OUTPUT);
 	DIO_voidSetPinDirection(LCD_4BITS_PORT, LCD_4BITS_PIN4, OUTPUT);
 
-	if (Get_State()==1){
-		LCD_voidSendCommand(0x02);
+	//_delay_ms(35);
+	if (Get_State()==first_state_delay_35ms){
+		LCD_voidSendCommand(LCD_COM_HOME);
 	}
-	else if(Get_State()==2){
-		LCD_voidSendCommand(0x28);
+	else if(Get_State()==second_state_delay_1ms){
+//	_delay_ms(1);
+		LCD_voidSendCommand(TWO_LINE_LCD_Four_BIT_MODE);
 	}
-	else if(Get_State()==3){
-	LCD_voidSendCommand(0x0E);
+
+//	_delay_ms(1);
+	else if(Get_State()==third_state_delay_1ms){
+	LCD_voidSendCommand(CURSOR_ON);
 	}
-	else if(Get_State()==4){
-	LCD_voidSendCommand(0x01);
+	//_delay_ms(1);
+	else if(Get_State()==forth_state_delay_1ms){
+	LCD_voidSendCommand(LCD_COM_CLEAR);
 	}
-	else if(Get_State()==5){
-	LCD_voidSendCommand(0x06);
+	//_delay_ms(1);
+	else if(Get_State()==fifth_state_delay_1ms){
+	LCD_voidSendCommand(LCD_COM_ENTRYMODE);
 	}
 
 //	_delay_ms(3);
@@ -73,7 +80,7 @@ void LCD_voidInit(void)
  */
 void LCD_voidSendCommand(uint8_t command)
 {
-	_delay_ms(5);
+	_delay_us(990);
 	DIO_voidSetPinValue(LCD_RS_PORT, LCD_RS_PIN, LOW);
 
 #if LCD_CURRENT_MODE == LCD_8BITS_MODE
@@ -86,22 +93,22 @@ void LCD_voidSendCommand(uint8_t command)
 
 #elif LCD_CURRENT_MODE == LCD_4BITS_MODE
 
-	DIO_voidSetPinValue(LCD_4BITS_PORT, LCD_4BITS_PIN1, GETBIT(command, 4));
-	DIO_voidSetPinValue(LCD_4BITS_PORT, LCD_4BITS_PIN2, GETBIT(command, 5));
-	DIO_voidSetPinValue(LCD_4BITS_PORT, LCD_4BITS_PIN3, GETBIT(command, 6));
-	DIO_voidSetPinValue(LCD_4BITS_PORT, LCD_4BITS_PIN4, GETBIT(command, 7));
+	DIO_voidSetPinValue(LCD_4BITS_PORT, LCD_4BITS_PIN1, GETBIT(command, PIN4));
+	DIO_voidSetPinValue(LCD_4BITS_PORT, LCD_4BITS_PIN2, GETBIT(command,  PIN5));
+	DIO_voidSetPinValue(LCD_4BITS_PORT, LCD_4BITS_PIN3, GETBIT(command,  PIN6));
+	DIO_voidSetPinValue(LCD_4BITS_PORT, LCD_4BITS_PIN4, GETBIT(command,  PIN7));
 
 	DIO_voidSetPinValue(LCD_E_PORT, LCD_E_PIN, HIGH);
-	_delay_ms(1);
+	_delay_us(990);
 	DIO_voidSetPinValue(LCD_E_PORT, LCD_E_PIN, LOW);
-	_delay_ms(1);
-	DIO_voidSetPinValue(LCD_4BITS_PORT, LCD_4BITS_PIN1, GETBIT(command, 0));
-	DIO_voidSetPinValue(LCD_4BITS_PORT, LCD_4BITS_PIN2, GETBIT(command, 1));
-	DIO_voidSetPinValue(LCD_4BITS_PORT, LCD_4BITS_PIN3, GETBIT(command, 2));
-	DIO_voidSetPinValue(LCD_4BITS_PORT, LCD_4BITS_PIN4, GETBIT(command, 3));
+	_delay_us(990);
+	DIO_voidSetPinValue(LCD_4BITS_PORT, LCD_4BITS_PIN1, GETBIT(command, PIN0));
+	DIO_voidSetPinValue(LCD_4BITS_PORT, LCD_4BITS_PIN2, GETBIT(command, PIN1));
+	DIO_voidSetPinValue(LCD_4BITS_PORT, LCD_4BITS_PIN3, GETBIT(command, PIN2));
+	DIO_voidSetPinValue(LCD_4BITS_PORT, LCD_4BITS_PIN4, GETBIT(command, PIN3));
 
 	DIO_voidSetPinValue(LCD_E_PORT, LCD_E_PIN, HIGH);
-	_delay_ms(1);
+	_delay_us(990);
 	DIO_voidSetPinValue(LCD_E_PORT, LCD_E_PIN, LOW);
 
 #endif
@@ -114,7 +121,7 @@ void LCD_voidSendCommand(uint8_t command)
  */
 void LCD_voidWriteChar(uint8_t ch)
 {
-	_delay_ms(5);
+	_delay_us(990);
 	DIO_voidSetPinValue(LCD_RS_PORT, LCD_RS_PIN, HIGH);
 
 #if LCD_CURRENT_MODE == LCD_8BITS_MODE
@@ -126,22 +133,22 @@ void LCD_voidWriteChar(uint8_t ch)
 	DIO_voidSetPinValue(PORTA_ID, LCD_E_PIN, LOW);
 
 #elif LCD_CURRENT_MODE == LCD_4BITS_MODE
-	DIO_voidSetPinValue(LCD_4BITS_PORT, LCD_4BITS_PIN1, GETBIT(ch, 4));
-	DIO_voidSetPinValue(LCD_4BITS_PORT, LCD_4BITS_PIN2, GETBIT(ch, 5));
-	DIO_voidSetPinValue(LCD_4BITS_PORT, LCD_4BITS_PIN3, GETBIT(ch, 6));
-	DIO_voidSetPinValue(LCD_4BITS_PORT, LCD_4BITS_PIN4, GETBIT(ch, 7));
+	DIO_voidSetPinValue(LCD_4BITS_PORT, LCD_4BITS_PIN1, GETBIT(ch, PIN4));
+	DIO_voidSetPinValue(LCD_4BITS_PORT, LCD_4BITS_PIN2, GETBIT(ch, PIN5));
+	DIO_voidSetPinValue(LCD_4BITS_PORT, LCD_4BITS_PIN3, GETBIT(ch, PIN6));
+	DIO_voidSetPinValue(LCD_4BITS_PORT, LCD_4BITS_PIN4, GETBIT(ch, PIN7));
 
 	DIO_voidSetPinValue(LCD_E_PORT, LCD_E_PIN, HIGH);
-	_delay_ms(1);
+	_delay_us(990);
 	DIO_voidSetPinValue(LCD_E_PORT, LCD_E_PIN, LOW);
 
-	DIO_voidSetPinValue(LCD_4BITS_PORT, LCD_4BITS_PIN1, GETBIT(ch, 0));
-	DIO_voidSetPinValue(LCD_4BITS_PORT, LCD_4BITS_PIN2, GETBIT(ch, 1));
-	DIO_voidSetPinValue(LCD_4BITS_PORT, LCD_4BITS_PIN3, GETBIT(ch, 2));
-	DIO_voidSetPinValue(LCD_4BITS_PORT, LCD_4BITS_PIN4, GETBIT(ch, 3));
+	DIO_voidSetPinValue(LCD_4BITS_PORT, LCD_4BITS_PIN1, GETBIT(ch, PIN0));
+	DIO_voidSetPinValue(LCD_4BITS_PORT, LCD_4BITS_PIN2, GETBIT(ch, PIN1));
+	DIO_voidSetPinValue(LCD_4BITS_PORT, LCD_4BITS_PIN3, GETBIT(ch, PIN2));
+	DIO_voidSetPinValue(LCD_4BITS_PORT, LCD_4BITS_PIN4, GETBIT(ch, PIN3));
 
 	DIO_voidSetPinValue(LCD_E_PORT, LCD_E_PIN, HIGH);
-	_delay_ms(1);
+	_delay_us(990);
 	DIO_voidSetPinValue(LCD_E_PORT, LCD_E_PIN, LOW);
 
 #endif
@@ -251,13 +258,13 @@ void LCD_voidGoto(uint8_t raw, uint8_t col)
 	case 0:
 		if ((col < 16) && (col >= 0))
 		{
-			LCD_voidSendCommand(0x80 + col);
+			LCD_voidSendCommand(LCD_COM_SET_CURSOR_FIRST_LINE + col);
 		}
 		break;
 	case 1:
 		if ((col < 16) && (col >= 0))
 		{
-			LCD_voidSendCommand(0xc0 + col);
+			LCD_voidSendCommand(LCD_COM_SET_CURSOR_SECOND_LINE + col);
 		}
 		break;
 	}
@@ -269,5 +276,5 @@ void LCD_voidGoto(uint8_t raw, uint8_t col)
  */
 void LCD_voidCLRDisplay(void)
 {
-	LCD_voidSendCommand(0x01);
+	LCD_voidSendCommand(LCD_COM_CLEAR);
 }

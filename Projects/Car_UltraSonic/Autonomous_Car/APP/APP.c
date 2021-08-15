@@ -12,8 +12,62 @@
 #include "Ultrasonic.h"
 #include "APP.h"
 
+extern volatile uint32_t count_flag;
+extern volatile uint32_t count_lcd;
+extern volatile uint32_t count_button;
 
-void APP_Init(void){
+extern uint8_t flag;
+volatile uint16_t Dis;
+static volatile uint16_t state = 0;
+/**
+ * @brief call back funcion
+ *
+ * @param LocalFptr pointer to function
+ */
+void Update_State(void)
+{
+	/*flag="first state delay 35ms";*/
+	if (count_flag == delay_35ms)
+	{
+		flag++;
+	}
+	/*flag="second state delay 1ms";*/
+	else if (count_flag == delay_36ms)
+	{
+
+		flag++;
+	}
+	/*flag="third state delay 1ms";*/
+	else if (count_flag == delay_37ms)
+	{
+		flag++;
+	}
+	/*flag="forth state delay 1ms";*/
+	else if (count_flag == delay_38ms)
+	{
+		flag++;
+	}
+	/*"fifth state delay 1ms"*/
+	else if (count_flag == delay_39ms)
+	{
+		flag++;
+	}
+	/*"sixth state delay 3ms"*/
+	else if (count_flag == delay_42ms)
+	{
+		flag++;
+	}
+	if (count_lcd == 2000)
+	{
+		LCD_voidGoto(ROW, COL);
+		LCD_voidCLRDisplay();
+		LCD_voidPrintUnsignedInteger(Dis);
+		count_lcd = 0;
+	}
+}
+
+void APP_Init(void)
+{
 
 	/* Initialization of LCD */
 	LCD_voidInit();
@@ -44,40 +98,37 @@ void APP_Init(void){
 
 	/* Initialization of MOTOR */
 	MOTOR_voidInit();
-}
 
+	DIO_voidSetPinDirection(PORT_C, PIN5, INPUT);
+	DIO_voidSetPinValue(PORT_C, PIN5, HIGH);
+	DIO_voidSetPinDirection(PORT_C, PIN2, OUTPUT);
+	DIO_voidSetPinValue(PORT_C, PIN2, LOW);
+}
 
 void APP_Start(void)
 {
-
 	LCD_voidInit();
-	uint16_t Dis;
-	if (Get_State()==6)
+	if (Get_State() == sixth_state_delay_3ms)
 	{
-		Timer0_OV_InterruptDisable();
+
 		Ultrasonic_u16GetDistance(&Dis);
-		LCD_voidGoto(ROW,COL);
-		LCD_voidCLRDisplay();
-		LCD_voidPrintUnsignedInteger(Dis);
-		if(Dis<48)
+
+		if (Dis < MIN_DISTANCE)
+		{
+
+			PWM_ENDutyCycle(20);
+			MOTOR_voidRotateAntiClkWise(LEFT_MOTOR_ON, RIGHT_MOTOR_ON);
+		}
+		else if ((MIN_DISTANCE < Dis) && (Dis <= MAX_DISTANCE))
+		{
+			PWM_ENDutyCycle(40);
+
+			MOTOR_voidRotateClkWise(LEFT_MOTOR_ON, RIGHT_MOTOR_OFF);
+		}
+		else if (Dis > MAX_DISTANCE)
 		{
 			PWM_ENDutyCycle(20);
-			MOTOR_voidRotateAntiClkWise(LEFT_MOTOR_ON,RIGHT_MOTOR_ON);
+			MOTOR_voidRotateClkWise(LEFT_MOTOR_ON, RIGHT_MOTOR_ON);
 		}
-		else if((48<=Dis)&&(Dis<=52))
-		{
-			PWM_ENDutyCycle(25);
-
-			MOTOR_voidRotateClkWise(LEFT_MOTOR_ON,RIGHT_MOTOR_OFF);
-
-		}
-		else if(Dis>52)
-		{
-			PWM_ENDutyCycle(20);
-			MOTOR_voidRotateClkWise(LEFT_MOTOR_ON,RIGHT_MOTOR_ON);
-
-		}
-
-
 	}
 }

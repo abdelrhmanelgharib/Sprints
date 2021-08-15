@@ -165,6 +165,13 @@ typedef enum
 	TIMER2_SCALER_1024,
 } EN_Timer2Scaler_t;
 
+#define first_state_delay_35ms 1
+
+#define second_state_delay_1ms 2
+#define third_state_delay_1ms  3
+#define forth_state_delay_1ms  4
+#define fifth_state_delay_1ms  5
+#define sixth_state_delay_3ms  6
 
 
 EN_ERRORSTATE_t Timer2_init(EN_Timer2Mode_t mode, EN_Timer2Scaler_t scaler);

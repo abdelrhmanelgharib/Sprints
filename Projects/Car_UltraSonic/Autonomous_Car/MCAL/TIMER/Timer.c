@@ -23,8 +23,11 @@ static void (*Timer2_OVF_Fptr)(void) = NULLPTR;
 
 static uint16_t gPrescal = 1;
 static volatile uint32_t gOVFNUM = 1;
-static volatile uint32_t count = 0;
-uint8_t flag=0;
+volatile uint32_t count_flag = 0;
+volatile uint32_t count_lcd = 0;
+volatile uint32_t count_button = 0;
+
+volatile uint8_t flag;
 
 /**************************************************************************/
 
@@ -64,7 +67,7 @@ EN_ERRORSTATE_t Timer0_Init(EN_Timer0Mode_t mode, EN_Timer0Scaler_t scaler, EN_O
 		break;
 	}
 
-	TCCR0 &= 0XF8; //0b11111000
+	TCCR0 &= 0XF8;
 	TCCR0 |= scaler;
 	gPrescal = scaler;
 
@@ -167,44 +170,10 @@ void Timer0_OC_InterruptDisable(void)
 	CLRBIT(TIMSK, OCIE0);
 }
 
-/**
- * @brief call back funcion
- * 
- * @param LocalFptr pointer to function 
- */
-void Update_State(void){
-	flag++;
-
-}
-uint8_t Get_State(void){
-
-//	if (flag==0){
-//		flag=1;
-//	}
-//	if (flag==1){
-//		flag++;
-//
-//		}
-//	if (flag==2){
-//		flag++;
-//
-//		}
-//	if (flag==3){
-//		flag++;
-//
-//		}
-//	if (flag==4){
-//		flag++;
-//
-//		}
-//	if (flag==5){
-//		flag++;
-//
-//		}
-
+uint8_t Get_State(void)
+{
 
 	return flag;
-
 }
 void Timer0_SetCallBack(void (*LocalFptr)(void))
 {
@@ -250,48 +219,22 @@ EN_ERRORSTATE_t Timer0_delayUs(uint32_t Time)
 	return state;
 }
 
- void __vector_11(void)
- {
- 	TCNT0 = 6;
- 	static volatile uint32_t delay = 140;
- 	count++;
- 	if (Timer0_OVF_Fptr != NULLPTR)
- 	{
+void __vector_11(void)
+{
+	TCNT0 = 6;
+	static volatile uint32_t delay = 140;
 
- 		if (count == 140)
- 		{
- 			Timer0_OVF_Fptr();
- 			//flag=1;
- 			//count = 0;
- 		}
- 		else if (count == 144)
- 		{
- 			Timer0_OVF_Fptr();
- 			//flag=1;
- 			//count = 0;
- 		}	else if (count == 148)
- 		{
- 			Timer0_OVF_Fptr();
- 			//flag=1;
- 			//count = 0;
- 		}	else if (count == 152)
- 		{
- 			Timer0_OVF_Fptr();
- 			//flag=1;
- 			//count = 0;
- 		}	else if (count == 156)
- 		{
- 			Timer0_OVF_Fptr();
- 			//flag=1;
- 			//count = 0;
- 		}	else if (count == 168)
- 		{
- 			Timer0_OVF_Fptr();
- 			//flag=1;
- 			//count = 0;
- 		}
- 	}
- }
+	if (count_flag < 200)
+	{
+		count_flag++;
+	}
+	count_lcd++;
+	count_button++;
+	if (Timer0_OVF_Fptr != NULLPTR)
+	{
+		Timer0_OVF_Fptr();
+	}
+}
 
 /****************************************Timer 1 **********************************************/
 
@@ -400,7 +343,6 @@ EN_ERRORSTATE_t Timer1_Init(Timer1Mode_type mode, Timer1Scaler_type scaler, OC1A
 
 	return state;
 }
-
 
 void Timer1_InputCaptureEdge(ICU_Edge_type edge)
 {
@@ -527,26 +469,22 @@ EN_ERRORSTATE_t Timer2_init(EN_Timer2Mode_t mode, EN_Timer2Scaler_t scaler)
 		break;
 	}
 
-	TCCR2 &= 0XF8; //0b11111000
+	TCCR2 &= 0XF8;
 	TCCR2 |= scaler;
-	
+
 	return state;
 }
-
 
 uint8_t Timer2_GetCount(void)
 {
 	return TCNT2;
 }
 
-
 void Timer2_OV_InterruptEnable(void)
 {
-	SETBIT(TIMSK,TOIE2);
+	SETBIT(TIMSK, TOIE2);
 	SETBIT(SREG, I_BIT);
 }
-
-
 
 void Timer2_OV_InterruptDisable(void)
 {
@@ -558,7 +496,6 @@ void Timer2_OVF_SetCallBack(void (*LocalFptr)(void))
 	Timer2_OVF_Fptr = LocalFptr;
 }
 
-
 void __vector_5(void)
 {
 	if (Timer2_OVF_Fptr != NULLPTR)
@@ -566,7 +503,3 @@ void __vector_5(void)
 		Timer2_OVF_Fptr();
 	}
 }
-
-
-
-

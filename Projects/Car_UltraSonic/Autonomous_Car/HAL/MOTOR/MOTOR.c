@@ -90,8 +90,7 @@ void MOTOR_voidRotateAntiClkWise(uint8_t copy_uint8_ttop,uint8_t copy_uint8_tdow
 
 }
 
-void MOTOR_voidStop(void)
-{
+void MOTOR_voidStop(void){
 	DIO_voidSetPinValue( MOTOR1_PORT,MOTOR1_PIN1,LOW);
 	DIO_voidSetPinValue( MOTOR1_PORT,MOTOR1_PIN2,LOW);
 	DIO_voidSetPinValue( MOTOR2_PORT,MOTOR2_PIN1,LOW);
