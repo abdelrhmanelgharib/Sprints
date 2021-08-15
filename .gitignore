@@ -55,8 +55,9 @@ EmbeddedSysLevel2/ATM_Project/ATM/ATM/.settings/de.innot.avreclipse.core.prefs
 EmbeddedSysLevel2/ATM_Project/ATM/ATM/.cproject
 ATM/ATM/Debug
 
-Project/.metadata
-Project/Car_UltraSonic/Debug
-Project/Car_UltraSonic/.settings/de.innot.avreclipse.core.prefs
-Project/Car_UltraSonic/.project
-Project/Car_UltraSonic/.cproject
+Projects/.metadata
+Projects/Car_UltraSonic/Debug
+Projects/Car_UltraSonic/.settings/de.innot.avreclipse.core.prefs
+Projects/Car_UltraSonic/.project
+Projects/Car_UltraSonic/.cproject
+Projects/.metadata
