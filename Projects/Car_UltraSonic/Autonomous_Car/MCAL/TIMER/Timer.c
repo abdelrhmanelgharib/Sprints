@@ -175,6 +175,12 @@ uint8_t Get_State(void)
 
 	return flag;
 }
+
+/**
+ * @brief call back funcion
+ * 
+ * @param LocalFptr pointer to function 
+ */
 void Timer0_SetCallBack(void (*LocalFptr)(void))
 {
 	Timer0_OVF_Fptr = LocalFptr;

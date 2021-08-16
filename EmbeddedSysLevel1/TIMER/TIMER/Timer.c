@@ -17,6 +17,7 @@ static void (*Timer1_OCB_Fptr)(void) = NULLPTR;
 static void (*Timer1_ICU_Fptr)(void) = NULLPTR;
 
 static void (*Timer0_OVF_Fptr)(void) = NULLPTR;
+static void (*Timer2_OVF_Fptr)(void) = NULLPTR;
 
 static uint16_t gPrescal = 1;
 static volatile uint32_t gOVFNUM = 1;
@@ -88,7 +89,6 @@ EN_ERRORSTATE_t Timer0_Init(EN_Timer0Mode_t mode, EN_Timer0Scaler_t scaler, EN_O
 	return state;
 }
 
-
 /**
  * @brief take dutycycle and OCO pin mode
  * 
@@ -97,17 +97,16 @@ EN_ERRORSTATE_t Timer0_Init(EN_Timer0Mode_t mode, EN_Timer0Scaler_t scaler, EN_O
  */
 void TIMER0_voidPhaseCorrect(uint8_t DutyCycle, EN_OC0Mode_t ocomode)
 {
-	if (ocomode == OCO_INVERTING )
+	if (ocomode == OCO_INVERTING)
 	{
-		OCR0 = 255 - ((TIMER0_REG_CAPACITY * DutyCycle)/100);
+		OCR0 = 255 - ((TIMER0_REG_CAPACITY * DutyCycle) / 100);
 	}
-	
+
 	else if (ocomode == OCO_NON_INVERTING)
 	{
-		OCR0 = (255 * DutyCycle)/100;
+		OCR0 = (255 * DutyCycle) / 100;
 	}
 }
-
 
 /**
  * @brief take dutycycle and OCO pin mode
@@ -119,11 +118,11 @@ void TIMER0_voidFastPWM(uint8_t DutyCycle, EN_OC0Mode_t ocomode)
 {
 	if (ocomode == OCO_INVERTING)
 	{
-		OCR0 = ((TIMER0_REG_CAPACITY * DutyCycle)/100)-1;
+		OCR0 = ((TIMER0_REG_CAPACITY * DutyCycle) / 100) - 1;
 	}
 	else if (ocomode == OCO_NON_INVERTING)
 	{
-		OCR0 = 255 - ((TIMER0_REG_CAPACITY * DutyCycle)/100);
+		OCR0 = 255 - ((TIMER0_REG_CAPACITY * DutyCycle) / 100);
 	}
 }
 
@@ -206,7 +205,7 @@ EN_ERRORSTATE_t Timer0_delayUs(uint32_t Time)
 		state = E_ERROR;
 	}
 
-	float TickTime = gPrescal / F_CPU;
+	float TickTime = gPrescal / F_CPU_MHZ;
 	uint32_t numbOfTick = Time / TickTime;
 	gOVFNUM = numbOfTick / 250;
 
@@ -231,13 +230,13 @@ void __vector_11(void)
 /****************************************Timer 1 **********************************************/
 
 /**
- * @brief Initialize Timer1
+ * @brief Initialize Timer1 Mode, Prescaler, OC1A, OC1B PIN 
  * 
- * @param mode TIMER1 Modes
- * @param scaler TIMER1 Prescaler
- * @param oc1a_mode 
- * @param oc1b_mode 
- * @return EN_ERRORSTATE_t 
+ * @param mode TIMER1 Modes	TIMER1_NORMAL_MODE - TIMER1_CTC_ICR_TOP_MODE - TIMER1_CTC_ICR_TOP_MODE 
+ * @param scaler TIMER1 Prescaler TIMER1_STOP - TIMER1_SCALER_1 -TIMER1_SCALER_8 - TIMER1_SCALER_64 - TIMER1_SCALER_256 - TIMER1_SCALER_1024 - EXTERNAL0_FALLING - EXTERNAL0_RISING
+ * @param oc1a_mode  OCRA_DISCONNECTED -  OCRA_TOGGLE - OCRA_NON_INVERTING - OCRA_INVERTING
+ * @param oc1b_mode OCRB_DISCONNECTED - OCRB_TOGGLE - OCRB_NON_INVERTING - OCRB_INVERTING
+ * @return EN_ERRORSTATE_t Error state
  */
 EN_ERRORSTATE_t Timer1_Init(Timer1Mode_type mode, Timer1Scaler_type scaler, OC1A_Mode_type oc1a_mode, OC1B_Mode_type oc1b_mode)
 {
@@ -277,6 +276,12 @@ EN_ERRORSTATE_t Timer1_Init(Timer1Mode_type mode, Timer1Scaler_type scaler, OC1A
 		SETBIT(TCCR1A, WGM10);
 		SETBIT(TCCR1A, WGM11);
 		SETBIT(TCCR1B, WGM12);
+		SETBIT(TCCR1B, WGM13);
+		break;
+	case TIMER1_PHASE_CORRECT_ICR_TOP_MODE:
+		CLRBIT(TCCR1A, WGM10);
+		CLRBIT(TCCR1A, WGM11);
+		CLRBIT(TCCR1B, WGM12);
 		SETBIT(TCCR1B, WGM13);
 		break;
 	default:
@@ -430,5 +435,68 @@ void __vector_6(void)
 	if (Timer1_ICU_Fptr != NULLPTR)
 	{
 		Timer1_ICU_Fptr();
+	}
+}
+
+/* *********************Timer2************** */
+EN_ERRORSTATE_t Timer2_init(EN_Timer2Mode_t mode, EN_Timer2Scaler_t scaler)
+{
+	EN_ERRORSTATE_t state;
+	state = E_OK;
+	switch (mode)
+	{
+	case TIMER2_NORMAL_MODE:
+		CLRBIT(TCCR2, WGM21);
+		CLRBIT(TCCR2, WGM20);
+		break;
+	case TIMER0_PHASECORRECT_MODE:
+		SETBIT(TCCR2, WGM20);
+		CLRBIT(TCCR2, WGM21);
+		break;
+	case TIMER0_CTC_MODE:
+		CLRBIT(TCCR2, WGM20);
+		SETBIT(TCCR2, WGM21);
+		break;
+	case TIMER0_FASTPWM_MODE:
+		SETBIT(TCCR2, WGM20);
+		SETBIT(TCCR2, WGM21);
+		break;
+	default:
+		state = E_ERROR;
+		break;
+	}
+
+	TCCR2 &= 0XF8;
+	TCCR2 |= scaler;
+
+	return state;
+}
+
+uint8_t Timer2_GetCount(void)
+{
+	return TCNT2;
+}
+
+void Timer2_OV_InterruptEnable(void)
+{
+	SETBIT(TIMSK, TOIE2);
+	SETBIT(SREG, I_BIT);
+}
+
+void Timer2_OV_InterruptDisable(void)
+{
+	CLRBIT(TIMSK, TOIE2);
+}
+
+void Timer2_OVF_SetCallBack(void (*LocalFptr)(void))
+{
+	Timer2_OVF_Fptr = LocalFptr;
+}
+
+void __vector_5(void)
+{
+	if (Timer2_OVF_Fptr != NULLPTR)
+	{
+		Timer2_OVF_Fptr();
 	}
 }
