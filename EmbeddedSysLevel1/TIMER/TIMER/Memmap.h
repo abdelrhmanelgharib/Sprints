@@ -105,9 +105,40 @@
 #define CS11    1
 #define CS10    0
 
-#define ICR1L  (*(volatile uint8_t*) 0x46)
-#define ICR1H  (*(volatile uint8_t*) 0x47
-#define TCNT1  (*(volatile uint16_t*) 0x4C)
+#define ICR1L    (*(volatile uint8_t*) 0x46)
+#define ICR1H    (*(volatile uint8_t*) 0x47)
+#define ICR1     (*(volatile uint16_t*) 0x46)
+#define OCR1AH   (*(volatile uint8_t*) 0x4B)
+#define OCR1AL   (*(volatile uint8_t*) 0x4A)
+#define OCR1A    (*(volatile uint16_t*) 0x4A)
+#define OCR1BH   (*(volatile uint8_t*) 0x49)
+#define OCR1BL   (*(volatile uint8_t*) 0x48)
+#define OCR1B    (*(volatile uint16_t*) 0x48)
+
+#define TCNT1    (*(volatile uint16_t*) 0x4C)
+
+
+/********************************************************************************
+ * 								TIMER2 Registers								*
+ * ******************************************************************************/
+#define TCNT2   (*(volatile uint8_t*) 0x44)
+#define TCCR2   (*(volatile uint8_t*) 0x45)
+#define FOC2    7
+#define WGM20   6
+#define COM21   5
+#define COM20   4
+#define WGM21   3
+#define CS22    2
+#define CS21    1
+#define CS20    0
+
+
+
+
+
+
+
+
 /*******************************************************************************
  *                           ADC Registers                                     *
 ********************************************************************************/
@@ -194,8 +225,8 @@
 /*******************************************************************************
  *                           I2C Registers                                     *
 ********************************************************************************/
-#define TWBR    (*(volatile uint8_t*) 0x20);
-#define TWSR    (*(volatile uint8_t*) 0x21);
+#define TWBR    (*(volatile uint8_t*) 0x20)
+#define TWSR    (*(volatile uint8_t*) 0x21)
 #define TWS7    7
 #define TWS6    6
 #define TWS5    5
@@ -204,7 +235,7 @@
 #define TWPS    1
 #define TWPS0   0
 
-#define TWAR    (*(volatile uint8_t*) 0x22);
+#define TWAR    (*(volatile uint8_t*) 0x22)
 #define TWA6    7
 #define TWA5    6
 #define TWA4    5
@@ -214,9 +245,17 @@
 #define TWA0    1
 #define TWGCE   0
 
-#define TWDR    (*(volatile uint8_t*) 0x23);
+#define TWDR    (*(volatile uint8_t*) 0x23)
+#define TWD7    7
+#define TWD6    6
+#define TWD5    5
+#define TWD4    4
+#define TWD3    3
+#define TWD2    2
+#define TWD1    1
+#define TWD0    0
 
-#define TWCR    (*(volatile uint8_t*) 0x56);
+#define TWCR    (*(volatile uint8_t*) 0x56)
 #define TWINT   7
 #define TWEA    6
 #define TWSTA   5
