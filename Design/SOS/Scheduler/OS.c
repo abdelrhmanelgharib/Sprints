@@ -79,7 +79,6 @@ EN_ERRORSTATE_t OS_Task_Handler(void)
                 gTaskArr[Task_Number].Task_State = READY;
                 /* Reset Counter to Initial */
                 gTaskArr[Task_Number].Task_Counter = 1;
-                
             }
             else
             {
@@ -101,5 +100,19 @@ EN_ERRORSTATE_t OS_Task_Handler(void)
  */
 EN_ERRORSTATE_t OS_TaskExecution(void)
 {
-    
+    uint8_t Task_Number = 0;
+
+    for (Task_Number = 0; Task_Number < gNoTaskCreated; Task_Number++)
+    {
+        /* Check For task is ready */
+        if (gTaskArr[Task_Number].Task_State == READY)
+        {
+            gTaskArr[Task_Number].Function();
+            gTaskArr[Task_Number].Task_State = IDLE;
+        }
+        else
+        {
+            /* Do Nothing */
+        }
+    }
 }
