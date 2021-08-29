@@ -13,6 +13,7 @@
 #define OS_H_
 
 #define NUMBER_OF_TASK      ((uint8_t)3)
+#define HYPER_PERIOD        ((uint8_t)6)
 
 typedef void (*PFunc_t)(void);
 
@@ -23,13 +24,15 @@ typedef enum
     SUSPENDED
 } EN_OSstate_t;
 
+
+/* Task Control Block */
 typedef struct 
 {
     PFunc_t Function;
     uint8_t Task_Periodicity;
     EN_OSstate_t Task_State;
+    uint8_t Task_Counter;
 }ST_Task_t;
-
 
 
 /**
