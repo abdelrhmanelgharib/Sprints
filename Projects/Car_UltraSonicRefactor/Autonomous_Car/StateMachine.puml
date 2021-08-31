@@ -1,0 +1,21 @@
+@startuml
+scale 600 width
+
+[*] -> GetDistance
+GetDistance : From Sensor
+GetDistance --> MotorControl
+state MotorControl {
+    state "if Distance less than 47" as long1
+    long1 : Car Backward
+    state "if Distance Between 47 && 52" as long2
+    long2 : Car turn Right
+    state "if Distance more than 52" as long3
+    long3 : Car forward
+}
+MotorControl -> GetDistance
+
+
+
+
+
+@enduml
