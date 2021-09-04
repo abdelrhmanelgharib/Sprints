@@ -1,0 +1,17 @@
+@startuml 
+
+scale 600 width
+
+[*] -> No_obstacle
+
+
+No_obstacle --> Near_obstcale
+Near_obstcale --> Near_obstcale: Max > distance
+Near_obstcale -->No_obstacle
+
+No_obstacle --> VeryNear_object
+VeryNear_object  -->No_obstacle
+VeryNear_object --> VeryNear_object : Distance >= MAX
+Near_obstcale : car Backward
+
+@enduml

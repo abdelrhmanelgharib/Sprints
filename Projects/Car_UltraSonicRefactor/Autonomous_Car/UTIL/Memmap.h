@@ -1,8 +1,13 @@
-/*
- *  Author: El-Gharib
- *  Created on: 17/2/2021
+/**
+ * @file Memmap.h
+ * @author Elgharib
+ * @brief 
+ * @version 0.1
+ * @date 2021-05-25
+ * 
+ * @copyright Copyright (c) 2021
+ * 
  */
-
 #ifndef MEMMAP_H_
 #define MEMMAP_H_
 
@@ -44,6 +49,7 @@
 
 
 #define SREG_I  7
+
 
 /*******************************************************************************
  *                           DIO Registers                                     *
@@ -210,7 +216,10 @@
 #define SPR1    1
 #define SPR0    0
 
-
+#define PB4    4
+#define PB5    5
+#define PB6    6
+#define PB7    7
 
 
 #define SPSR    (*(volatile uint8_t*) 0x2E)
@@ -264,6 +273,31 @@
 #define TWEN    2
 #define TWIE    0
 
+
+/*******************************************************************************
+ *                            Victor Table                                   *
+********************************************************************************/
+void __vector_1(void) __attribute__((signal));
+void __vector_2(void) __attribute__((signal));
+void __vector_3(void) __attribute__((signal));
+
+
+/* TIMER2_OVF_vect */
+void __vector_5(void) __attribute__((signal));
+/* TIMER1_ICU_vect */
+void __vector_6(void) __attribute__((signal));
+/* TIMER1_OCA_vect */
+void __vector_7(void) __attribute__((signal));
+/* TIMER1_OCB_vect */
+void __vector_8(void) __attribute__((signal));
+/* TIMER1_OVF_vect */
+void __vector_9(void) __attribute__((signal));
+
+/* TIMER0_CTC_vect */
+void __vector_10(void) __attribute__((signal));
+
+/* TIMER0_OVF_vect */
+void __vector_11(void) __attribute__((signal));
 
 
 #endif /* MEMMAP_H_ */

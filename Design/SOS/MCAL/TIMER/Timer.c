@@ -1,6 +1,6 @@
 /**
  * @file Timer.c
- * @author Vicious
+ * @author Elgharib
  * @brief  TIMER
  * @version 0.1
  * @date 2021-07-8
@@ -8,7 +8,6 @@
  */
 
 #include "Timer.h"
-
 #include "TIMER_cfg.h"
 
 /****************************Pointer to functions to be assigned to ISR*********************************/
@@ -23,9 +22,6 @@ static void (*Timer2_OVF_Fptr)(void) = NULLPTR;
 
 static uint16_t gPrescal = 1;
 static volatile uint32_t gOVFNUM = 1;
-volatile uint32_t count_flag = 0;
-volatile uint32_t count_lcd = 0;
-volatile uint32_t count_button = 0;
 
 volatile uint8_t flag;
 
@@ -227,15 +223,7 @@ EN_ERRORSTATE_t Timer0_delayUs(uint32_t Time)
 
 void __vector_11(void)
 {
-	TCNT0 = 6;
-	static volatile uint32_t delay = 140;
-
-	if (count_flag < 200)
-	{
-		count_flag++;
-	}
-	count_lcd++;
-	count_button++;
+	TCNT0 = 156;
 	if (Timer0_OVF_Fptr != NULLPTR)
 	{
 		Timer0_OVF_Fptr();

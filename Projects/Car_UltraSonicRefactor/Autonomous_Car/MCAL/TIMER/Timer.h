@@ -1,13 +1,22 @@
+/**
+ * @file TIMER.h
+ * @author Vicious
+ * @brief 
+ * @version 0.1
+ * @date 2021-07-11
+ * 
+ */
+
 #ifndef TIMER_H_
 #define TIMER_H_
 
 #include "DataTypes.h"
 #include "BIT_Math.h"
-#include "TIMER_private.h"
 #include "Memmap.h"
 
-#define NULLPTR (void *)0
-#define F_CPU_MHZ 8.0
+#define  TIMER0_REG_CAPACITY		256
+#define  TIMER2_REG_CAPACITY		256
+
 typedef enum
 {
 	TIMER0_STOP = 0,
@@ -37,20 +46,41 @@ typedef enum
 	OCO_INVERTING
 } EN_OC0Mode_t;
 
-typedef enum
-{
-	E_ERROR,
-	E_OK
-} EN_ERRORSTATE_t;
 
+/**
+ * @brief Initalize Timer0 
+ * 
+ * @param mode 
+ * @param scaler 
+ * @param oc_mode 
+ * @return EN_ERRORSTATE_t 
+ */
 EN_ERRORSTATE_t Timer0_Init(EN_Timer0Mode_t mode, EN_Timer0Scaler_t scaler, EN_OC0Mode_t oc_mode);
+
+/**
+ * @brief 
+ * 
+ */
 void Timer0_OV_InterruptEnable(void);
+
+/**
+ * @brief 
+ * 
+ */
 void Timer0_OV_InterruptDisable(void);
+
+/**
+ * @brief 
+ * 
+ */
 void Timer0_OC_InterruptEnable(void);
 void Timer0_OC_InterruptDisable(void);
 EN_ERRORSTATE_t Timer0_delayUs(uint32_t Time);
 void TIMER0_voidPhaseCorrect(uint8_t DutyCycle, EN_OC0Mode_t ocomode);
 void TIMER0_voidFastPWM(uint8_t DutyCycle, EN_OC0Mode_t ocomode);
+void Update_State(void);
+uint8_t Get_State(void);
+void __vector_11(void) __attribute__((signal));
 
 void Timer0_SetCallBack(void (*local_pf)(void));
 
@@ -97,13 +127,13 @@ typedef enum
 
 typedef enum
 {
-	RISING,
-	FALLING
-} ICU_Edge_type;
+	ICU_RISING,
+	ICU_FALLING
+}ICU_Edge_type;
+
 
 void Timer1_InputCaptureEdge(ICU_Edge_type edge);
 EN_ERRORSTATE_t Timer1_Init(Timer1Mode_type mode, Timer1Scaler_type scaler, OC1A_Mode_type oc1a_mode, OC1B_Mode_type oc1b_mode);
-
 void Timer1_ICU_InterruptEnable(void);
 void Timer1_ICU_InterruptDisable(void);
 void Timer1_OVF_InterruptEnable(void);
@@ -134,6 +164,16 @@ typedef enum
 	TIMER2_SCALER_256,
 	TIMER2_SCALER_1024,
 } EN_Timer2Scaler_t;
+
+#define first_state_delay_35ms 1
+
+#define second_state_delay_1ms 2
+#define third_state_delay_1ms  3
+#define forth_state_delay_1ms  4
+#define fifth_state_delay_1ms  5
+#define sixth_state_delay_3ms  6
+
+
 EN_ERRORSTATE_t Timer2_init(EN_Timer2Mode_t mode, EN_Timer2Scaler_t scaler);
 
 uint8_t Timer2_GetCount(void);

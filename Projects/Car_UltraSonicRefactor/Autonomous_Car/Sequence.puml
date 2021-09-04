@@ -1,0 +1,41 @@
+@startuml 
+
+
+participant main
+participant Monitoring
+participant MotorControl
+participant Sensor
+participant Motor
+participant DIO
+participant EXTI
+participant Timer
+participant PWM
+
+
+main -> Monitoring : Sensor MainFunction
+Monitoring -> Sensor : Ultrasonic_u16GetDistance
+Sensor -> DIO : Trigger
+Sensor -> EXTI : Detect Echo Egde & start timer
+EXTI -> Timer : calculate time
+Timer -> EXTI : Number of Count
+EXTI -> Sensor : return time to calculate Distance
+Sensor -> Monitoring : get Distance
+Monitoring -> Monitoring : update state
+
+
+main -> MotorControl : MOTOR_mainFunction
+
+MotorControl -> MotorControl : check Distance
+MotorControl -> Motor : Set Direction
+MotorControl -> PWM : Set Speed
+PWM -> DIO : Duty Cycle
+
+
+
+
+
+
+
+
+
+@enduml

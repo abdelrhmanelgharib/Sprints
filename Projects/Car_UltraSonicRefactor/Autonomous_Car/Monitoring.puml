@@ -1,0 +1,17 @@
+@startuml 
+
+scale 600 width
+
+[*] -> Ideal
+
+Ideal : Trigger DIO
+Ideal --> Wait_Echo
+
+Wait_Echo : wait for Echo Pin is low
+
+Wait_Echo --> update_Distance : Echo Received
+update_Distance --> Ideal
+
+
+
+@enduml
