@@ -61,3 +61,15 @@ Projects/Car_UltraSonic/.settings/de.innot.avreclipse.core.prefs
 Projects/Car_UltraSonic/.project
 Projects/Car_UltraSonic/.cproject
 Projects/.metadata
+Projects/Timer
+Design/Interrupts
+Design/SOS/MCAL/DIO
+Design/SOS/MCAL/EXTI
+Design/SOS/MCAL/PWM
+
+Design/SOS/Debug
+Projects/RTOS
+Projects/Car_UltraSonicRefactor/Debug
+Projects/Car_UltraSonicRefactor/.project
+Design/SOS/.project
+Design/SOS/.cproject
