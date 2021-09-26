@@ -73,3 +73,11 @@ Projects/Car_UltraSonicRefactor/Debug
 Projects/Car_UltraSonicRefactor/.project
 Design/SOS/.project
 Design/SOS/.cproject
+Projects/BluetoothModule/Debug
+Projects/BluetoothModule/.cproject
+Projects/BluetoothModule/.project
+Projects/BluetoothModule/.settings/de.innot.avreclipse.core.prefs
+Projects/BluetoothModule/Release
+Projects/Machine2Machine/BluetoothModule/Debug
+Projects/Machine2Machine/BLuetoothSlave/Debug
+Projects/Machine2Machine/BluetoothModule/Release

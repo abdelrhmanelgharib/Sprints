@@ -1,0 +1,16 @@
+@startuml
+
+
+participant Led_Pattern
+participant Led_App
+participant Timer
+participant Pwm
+
+
+Led_Pattern  -> Timer    : setCallback
+Led_Pattern  -> Timer    : StartTimer
+Timer        -> Led_App  : every OverFlow
+Led_App      -> Pwm      : if state is change
+
+
+@enduml
