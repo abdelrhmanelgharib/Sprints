@@ -121,7 +121,7 @@ int main( void )
 
 			
 	
-		xQueue = xQueueCreate(4, sizeof( unsigned char ));
+		xQueue = xQueueCreate(5, sizeof( unsigned char ));
 
     /* Create Tasks here */
 		/*  */
