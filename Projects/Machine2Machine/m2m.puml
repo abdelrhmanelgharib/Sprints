@@ -1,0 +1,38 @@
+@startuml
+
+participant App_Init
+participant UART_Init
+participant Timer_Init
+participant PWM_Init
+participant Uart
+participant Timer
+participant PWM
+participant I2C
+participant Led_Init
+participant Keypad_Init
+participant LCD_Init
+participant EEPROM_Init
+
+
+participant DIO
+
+
+App_Init -> UART_Init       : Init Uart
+UART_Init -> Uart           : setBaudrate, fram
+UART_Init -> DIO            : Init uart Pins
+App_Init -> Timer_Init      : Init timer
+Timer_Init -> Timer         : SetMode 
+Timer_Init -> DIO           : Init timer Pins
+App_Init -> PWM_Init        : Init Pwm
+PWM_Init -> PWM             : SetSpeed
+PWM_Init -> DIO             : Init pwm Pins
+App_Init -> Led_Init        : Init Led
+Led_Init -> DIO             : Init Led pins
+App_Init -> Keypad_Init     : Init Keypad
+Keypad_Init -> DIO          : Init Keypad Pins
+App_Init -> LCD_Init        : Init Lcd Mode
+LCD_Init -> DIO             : Init LCD Pins
+EEPROM_Init -> I2C          : Init Mode
+I2C -> DIO                  : Init Pins
+
+@enduml

@@ -1,0 +1,38 @@
+@startuml
+
+
+participant Bluetooth
+participant Uart
+participant Timer
+participant I2C
+participant EEPROM
+
+participant Lcd
+
+
+
+Bluetooth -> Uart   : send Packet
+Bluetooth -> Timer  : Wait for respond until 200ms
+
+
+loop 5 times when state of 200ms set
+    Bluetooth -> Uart   : bluetooth check
+    alt#Gold #LightBlue UartRespond
+        Uart ->Bluetooth : there is data
+        break
+        end
+    else #pink false
+        Uart -> Bluetooth : no data
+        Bluetooth -> Uart   : send Packet
+        Bluetooth -> Timer  : Wait for respond until 200ms or uart receive
+        Timer -> Bluetooth  : 200ms finished and state change
+        Uart -> Bluetooth   : data received and state change 
+    end
+end
+
+Bluetooth -> EEPROM : data
+EEPROM -> I2C       : store data in eeprom
+
+Bluetooth ->  Lcd        : print Data
+
+@enduml
